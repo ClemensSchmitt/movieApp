@@ -1,8 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import { textShadowColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
+import database from '@react-native-firebase/database';
+
 
 export default function App() {
+
+
   return (
     <View style={styles.container}>
       <View style={styles.searchbar}>
@@ -37,7 +41,6 @@ export default function App() {
         <Text>Recommended</Text>
       </View> 
       <View>
-
       </View>
       </View>
     </View>
