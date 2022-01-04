@@ -12,6 +12,8 @@ import PersonalRanking from './components/PersonalRanking';
 import Popular from './components/Popular';
 import Recommended from './components/Recommended';
 import Login from './components/Login';
+import Register from './components/Register';
+import RegisterSuccessful from './components/RegisterSuccessful';
 
 const Stack = createStackNavigator();
 
@@ -20,6 +22,8 @@ const MyStack = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="Login" component={Login} options={{title: "Login"}} />
+        <Stack.Screen name="Register" component={Register} options={{title: "Register"}} />
+        <Stack.Screen name="RegisterSuccessful" component={RegisterSuccessful} options={{title: "RegisterSuccessful"}} />
         <Stack.Screen name="Dashboard" component={Dashboard} options={{title: "Dashboard"}} />
         <Stack.Screen name="MustWatchList" component={MustWatchList} options={{title: "Must Watch List"}}/>
         <Stack.Screen name="PersonalRanking" component={PersonalRanking} options={{title: "Personal Ranking"}}/>

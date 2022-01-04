@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable} from 'react-native';
 
-const Login = ({navigation}) => {
+const Register = ({navigation}) => {
 
     return (
         <View style={styles.container}>
@@ -10,7 +10,7 @@ const Login = ({navigation}) => {
 
             </View>
 
-            <View style={styles.loginMask}>
+            <View style={styles.registerMask}>
                 <TextInput 
                 style={styles.userEmail}
                 //onChangeText={onChangeNumber}
@@ -29,13 +29,19 @@ const Login = ({navigation}) => {
                 >
 
                 </TextInput>
+                <TextInput 
+                style={styles.userRepeatPassword}
+                //onChangeText={onChangeNumber}
+                //value={number}
+                placeholder="Repeat Password"
+                keyboardType="numeric"
+                >
+
+                </TextInput>
             </View>
             <View style={styles.spacer}>
-                <Pressable onPress = {() => navigation.navigate("Dashboard")} title='Dashboard' style={styles.buttonStyle}>
-                <Text style={styles.buttonTextStyle}>Dashboard</Text>
-                </Pressable>
-                <Pressable onPress = {() => navigation.navigate("Register")} title='Register' style={styles.buttonStyle}>
-                <Text style={styles.buttonTextStyle}>Register</Text>
+                <Pressable onPress = {() => navigation.navigate("RegisterSuccessful")} title='RegisterSuccessful' style={styles.buttonStyle}>
+                <Text style={styles.buttonTextStyle}>Continue</Text>
                 </Pressable>
             </View>
         </View>
@@ -52,8 +58,8 @@ const styles = StyleSheet.create({
     logoPicture:{
     flex: 1,
     },
-    loginMask: {
-    flex: 1,
+    registerMask: {
+    flex: 2,
     flexDirection: "column",
     },
     userEmail:{
@@ -65,6 +71,13 @@ const styles = StyleSheet.create({
     
     }, 
     userPassword:{
+    flex:1,
+    backgroundColor:'#6200EA',
+    borderRadius: 8,
+    padding: 10,
+    margin: 5
+    },
+    userRepeatPassword:{
     flex:1,
     backgroundColor:'#6200EA',
     borderRadius: 8,
@@ -99,4 +112,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default Login;
+export default Register;
