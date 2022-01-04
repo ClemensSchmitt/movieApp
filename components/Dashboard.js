@@ -7,7 +7,6 @@ const Dashboard = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchbar}>
-      
       </View>
       <View style={styles.buttons}>
           <Button onPress = {() => navigation.navigate("MustWatchList")} title='MustWatchList' style={styles.touchableOpacity}>
