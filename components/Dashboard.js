@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import { textShadowColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 const Dashboard = ({navigation}) => {
@@ -7,7 +8,10 @@ const Dashboard = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchbar}>
-      
+          <TextInput style={styles.searchInput}>
+
+          </TextInput>
+
       </View>
       <View style={styles.buttonContainer}>
           <Pressable onPress = {() => navigation.navigate("MustWatchList")} title='MustWatchList' style={styles.buttonStyle}>
@@ -78,14 +82,7 @@ const styles = StyleSheet.create({
     textShadowColor: '#000000',
     textShadowRadius: 10,
   },
-    searchbar: {
-    backgroundColor: '#6200EA',
-    height: 80,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    alignSelf: 'stretch',
-  },
-  movies:{
+  movies: {
     height: 180,
     width: 300,
     backgroundColor: '#6200EA',
@@ -94,14 +91,25 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginTop: 10,
   },
-  recommendTextStyle:{
+  recommendTextStyle: {
     justifyContent:'center',
   },
-  recommendTextBoxStyle:{
+  recommendTextBoxStyle: {
     textAlign: 'center',
     textAlignVertical: 'center',
     height: 20,
-  }
+  },
+  search: {
+    width: 120,
+    
+  },
+    searchbar: {
+    backgroundColor: '#6200EA',
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    alignSelf: 'stretch',
+  },
 });
 
 export default Dashboard;
