@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, Alert} from 'react-native';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { textShadowColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 const Dashboard = ({navigation}) => {
@@ -8,33 +8,32 @@ const Dashboard = ({navigation}) => {
     <View style={styles.container}>
       <View style={styles.searchbar}>
       </View>
-      <View style={styles.buttons}>
-          <Button onPress = {() => navigation.navigate("MustWatchList")} title='MustWatchList' style={styles.touchableOpacity}>
+      <View style={styles.buttonContainer}>
+          <Pressable onPress = {() => navigation.navigate("MustWatchList")} title='MustWatchList' style={styles.buttonStyle}>
           <Text style={styles.buttonTextStyle}>Must Watch List</Text>
-          </Button>
-          <Button title='PersonalRanking' style={styles.touchableOpacity}>
+          </Pressable>
+          <Pressable onPress = {() => navigation.navigate("PersonalRanking")} title='PersonalRanking' style={styles.buttonStyle}>
           <Text style={styles.buttonTextStyle}>Personal Ranking</Text>
-          </Button>
+          </Pressable>
       </View>
-      <View style={styles.buttons}>
-          <Button title='Favorites' style={styles.touchableOpacity}>
+      <View style={styles.buttonContainer}>
+          <Pressable onPress = {() => navigation.navigate("Favorites")} title='Favorites' style={styles.buttonStyle}>
           <Text style={styles.buttonTextStyle}>Favorites</Text>
-          </Button>
-          <Button title='Top 250' style={styles.touchableOpacity}>
+          </Pressable>
+          <Pressable onPress = {() => navigation.navigate("Top250")} title='Top 250' style={styles.buttonStyle}>
           <Text style={styles.buttonTextStyle}>Top 250</Text>
-          </Button>
+          </Pressable>
       </View>
       <View style={styles.movies}>
-      <View>
-        <Text>Popular</Text>
+      <View style={styles.recommendTextBoxStyle}>
+        <Text onPress = {() => navigation.navigate("Popular")} title='Popular'  style={styles.buttonTextStyle}>Popular</Text>
       </View> 
       <View>
-
       </View>
       </View>
       <View style={styles.movies}>
-      <View>
-        <Text>Recommended</Text>
+      <View style={styles.recommendTextBoxStyle}>
+        <Text onPress = {() => navigation.navigate("Recommended")} title='Recommended'  style={styles.buttonTextStyle}>Recommended</Text>
       </View> 
       <View>
       </View>
@@ -47,21 +46,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  buttons: {
+  buttonContainer: {
     top: 10,
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingVertical: 10, 
     maxHeight: 80,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
-  touchableOpacity: {
+  buttonStyle: {
     backgroundColor: '#6200EA',
-    width: 150,
     height: 50,
-    marginLeft: 15,
-    marginRight: 15,
+    width: 120,
     borderRadius: 8,
     shadowColor: "#000",
     shadowOffset: {
@@ -70,8 +67,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.58,
     shadowRadius: 16.00,
-
-    elevation: 24,
+    elevation: 12,
   },
   buttonTextStyle: {
     textAlign: 'center',
@@ -96,6 +92,14 @@ const styles = StyleSheet.create({
     top: 20,
     borderRadius: 8,
     marginTop: 10,
+  },
+  recommendTextStyle:{
+    justifyContent:'center',
+  },
+  recommendTextBoxStyle:{
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    height: 20,
   }
 });
 

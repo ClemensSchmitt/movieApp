@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 
-const MustWatchList = () => {
+const PersonalRanking = () => {
 
     return (
       <View style={styles.container}>
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
 }
 );
 
-export default MustWatchList;
+export default PersonalRanking;
