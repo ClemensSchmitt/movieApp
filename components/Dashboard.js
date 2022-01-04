@@ -8,10 +8,13 @@ const Dashboard = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchbar}>
+<<<<<<< HEAD
           <TextInput style={styles.searchInput}>
 
           </TextInput>
 
+=======
+>>>>>>> aa660fccb6dd4b240095335bea6ac854d211d586
       </View>
       <View style={styles.buttonContainer}>
           <Pressable onPress = {() => navigation.navigate("MustWatchList")} title='MustWatchList' style={styles.buttonStyle}>
