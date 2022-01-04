@@ -15,6 +15,8 @@ const Login = () => {
                 style={styles.userEmail}
                 onChangeText={onChangeNumber}
                 value={number}
+                //onChangeText={onChangeNumber}
+                //value={number}
                 placeholder="Email"
                 keyboardType="numeric"
                 >
@@ -25,6 +27,9 @@ const Login = () => {
                 onChangeText={onChangeNumber}
                 value={number}
                 placeholder="Passwort"
+                //onChangeText={onChangeNumber}
+                //value={number}
+                placeholder="Password"
                 keyboardType="numeric"
                 >
 
@@ -40,6 +45,7 @@ const Login = () => {
     
 const styles = StyleSheet.create({
     container: {
+        container: {
         flex: 1,
         padding: 20,
         flexDirection: "column",
@@ -54,11 +60,20 @@ const styles = StyleSheet.create({
         userEmail:{
         flex:1,
         backroundColor:'#6200EA', 
+        backgroundColor:'#6200EA', 
+        borderRadius: 8,
+        padding: 10,
+        margin: 5
       
         }, 
         userPasswort:{
+        userPassword:{
         flex:1,
         backroundColor:'#6200EA',
+        backgroundColor:'#6200EA',
+        borderRadius: 8,
+        padding: 10,
+        margin: 5
         },
         spacer:{
         flex:1,
@@ -66,5 +81,6 @@ const styles = StyleSheet.create({
       
     }
 );
+    });
 
 export default Login;
