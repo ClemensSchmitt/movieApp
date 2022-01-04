@@ -6,9 +6,7 @@ const Dashboard = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.searchbar}>
-      
           <TextInput style={styles.searchInput}>
-          
           </TextInput>
           <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
       </View>
