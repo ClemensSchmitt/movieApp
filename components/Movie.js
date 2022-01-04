@@ -1,11 +1,11 @@
-import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image} from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
 
-const Favorites = () => {
+const Movie = () => {
+
 
     return (
       <View style={styles.container}>
-          <View style={styles.searchbar}>
+                <View style={styles.searchbar}>
       
           <TextInput style={styles.searchInput}>
           
@@ -17,7 +17,6 @@ const Favorites = () => {
     )
 }
 
-    
 const styles = StyleSheet.create({
     container: {
     flex: 1,
@@ -47,4 +46,4 @@ const styles = StyleSheet.create({
 }
 );
 
-export default Favorites;
+export default Movie;
