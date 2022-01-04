@@ -1,20 +1,16 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import { textShadowColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 const Dashboard = ({navigation}) => {
 
   return (
     <View style={styles.container}>
       <View style={styles.searchbar}>
-<<<<<<< HEAD
+      
           <TextInput style={styles.searchInput}>
-
+          
           </TextInput>
-
-=======
->>>>>>> aa660fccb6dd4b240095335bea6ac854d211d586
+          <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
       </View>
       <View style={styles.buttonContainer}>
           <Pressable onPress = {() => navigation.navigate("MustWatchList")} title='MustWatchList' style={styles.buttonStyle}>
@@ -33,19 +29,20 @@ const Dashboard = ({navigation}) => {
           </Pressable>
       </View>
       <View style={styles.movies}>
-      <View style={styles.recommendTextBoxStyle}>
-        <Text onPress = {() => navigation.navigate("Popular")} title='Popular'  style={styles.buttonTextStyle}>Popular</Text>
-      </View> 
+      <Pressable onPress = {() => navigation.navigate("Popular")} title='Popular' style={styles.recommendTextBoxStyle}>
+        <Text style={styles.buttonTextStyle}>Popular</Text>
+      </Pressable> 
       <View>
       </View>
       </View>
       <View style={styles.movies}>
-      <View style={styles.recommendTextBoxStyle}>
-        <Text onPress = {() => navigation.navigate("Recommended")} title='Recommended'  style={styles.buttonTextStyle}>Recommended</Text>
-      </View> 
+      <Pressable onPress = {() => navigation.navigate("Recommended")} title='Recommended' style={styles.recommendTextBoxStyle}>
+        <Text style={styles.buttonTextStyle}>Recommended</Text>
+      </Pressable> 
       <View>
       </View>
       </View>
+      
     </View>
   );
 }
@@ -102,17 +99,27 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     height: 20,
   },
-  search: {
-    width: 120,
-    
+  searchInput: {
+    top: 10,
+    width: 270,
+    height: 35,
+    backgroundColor: '#4527A0',
+    borderRadius: 8,
   },
-    searchbar: {
+  searchbar: {
     backgroundColor: '#6200EA',
     height: 80,
     alignItems: 'center',
     justifyContent: 'space-around',
     alignSelf: 'stretch',
   },
+  searchIcon:{
+    maxWidth: 20,
+    maxHeight: 20,
+    position: 'absolute',
+    right: 50,
+    bottom: 20
+  }
 });
 
 export default Dashboard;
