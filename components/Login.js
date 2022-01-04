@@ -1,7 +1,30 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable} from 'react-native';
 
 const Login = ({navigation}) => {
+
+
+    const [state, setState] = useState({
+      email: "",
+      password: "",
+    });
+
+
+    const textChange = (name, value) => {
+      setState({...state, [name]: value})
+    };
+
+    const login = () => {
+      if(state.email == ''){
+        Alert.alert("Please enter an email");
+      }
+      else if(state.password == ''){
+        Alert.alert("Please enter your password");
+      }
+      else{
+        navigation.navigate("Dashboard");
+      }
+    }
 
     return (
         <View style={styles.container}>
@@ -13,26 +36,24 @@ const Login = ({navigation}) => {
             <View style={styles.loginMask}>
                 <TextInput 
                 style={styles.userEmail}
-                //onChangeText={onChangeNumber}
-                //value={number}
                 placeholder="Email"
-                keyboardType="numeric"
+                placeholderTextColor={"#fff"}
+                onChangeText={(value) => textChange("email", value)}
                 >
-            
                 </TextInput>
                 <TextInput 
                 style={styles.userPassword}
-                //onChangeText={onChangeNumber}
-                //value={number}
                 placeholder="Password"
-                keyboardType="numeric"
+                placeholderTextColor={"#fff"}
+                onChangeText={(value) => textChange("password", value)}
+                password={true}
+                autoCorrect={false}
                 >
-
                 </TextInput>
             </View>
             <View style={styles.spacer}>
-                <Pressable onPress = {() => navigation.navigate("Dashboard")} title='Login' style={styles.buttonStyle}>
-                <Text style={styles.buttonTextStyle}>Dashboard</Text>
+                <Pressable onPress = {login} title='Login' style={styles.buttonStyle}>
+                <Text style={styles.buttonTextStyle}>Login</Text>
                 </Pressable>
                 <Pressable onPress = {() => navigation.navigate("Register")} title='Register' style={styles.buttonStyle}>
                 <Text style={styles.buttonTextStyle}>Register</Text>
@@ -61,15 +82,16 @@ const styles = StyleSheet.create({
     backgroundColor:'#6200EA', 
     borderRadius: 8,
     padding: 10,
-    margin: 5
-    
+    margin: 5,
+    color: "#fff"
     }, 
     userPassword:{
     flex:1,
     backgroundColor:'#6200EA',
     borderRadius: 8,
     padding: 10,
-    margin: 5
+    margin: 5,
+    color: "#fff"
     },
     spacer:{
     flex:1,

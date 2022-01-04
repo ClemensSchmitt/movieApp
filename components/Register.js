@@ -1,7 +1,37 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable} from 'react-native';
 
 const Register = ({navigation}) => {
+
+
+    const [state, setState] = useState({
+      email: "",
+      password: "",
+      repeatPassword: "",
+    });
+
+
+    const textChange = (name, value) => {
+      setState({...state, [name]: value})
+    };
+
+    const register = () => {
+      if(state.email == ''){
+        Alert.alert("Please enter an email");
+      }
+      else if(state.password == ''){
+        Alert.alert("Please enter your password");
+      }
+      else if(state.repeatPassword == ''){
+        Alert.alert("Please repeat your password");
+      }
+      else{
+        
+        //Email must be unique -- if
+        //Email must contain "@" and "."
+        navigation.navigate("RegisterSuccessful");
+      }
+    }
 
     return (
         <View style={styles.container}>
@@ -13,35 +43,36 @@ const Register = ({navigation}) => {
             <View style={styles.registerMask}>
                 <TextInput 
                 style={styles.userEmail}
-                //onChangeText={onChangeNumber}
-                //value={number}
+                onChangeText={(value) => textChange("email", value)}
                 placeholder="Email"
-                keyboardType="numeric"
+                placeholderTextColor={"#fff"}
                 >
-            
                 </TextInput>
                 <TextInput 
                 style={styles.userPassword}
-                //onChangeText={onChangeNumber}
-                //value={number}
+                onChangeText={(value) => textChange("password", value)}
+                secureTextEntry={true}
+                password={true}
+                autoCorrect={false}
+                placeholderTextColor={"#fff"}
                 placeholder="Password"
-                keyboardType="numeric"
                 >
-
                 </TextInput>
                 <TextInput 
                 style={styles.userRepeatPassword}
-                //onChangeText={onChangeNumber}
-                //value={number}
+                onChangeText={(value) => textChange("repeatPassword", value)}
+                secureTextEntry={true}
+                password={true}
+                autoCorrect={false}
+                placeholderTextColor={"#fff"}
                 placeholder="Repeat Password"
-                keyboardType="numeric"
                 >
 
                 </TextInput>
             </View>
             <View style={styles.spacer}>
-                <Pressable onPress = {() => navigation.navigate("RegisterSuccessful")} title='RegisterSuccessful' style={styles.buttonStyle}>
-                <Text style={styles.buttonTextStyle}>Continue</Text>
+                <Pressable onPress = {register} title='RegisterSuccessful' style={styles.buttonStyle}>
+                <Text style={styles.buttonTextStyle}>Register</Text>
                 </Pressable>
             </View>
         </View>
@@ -67,22 +98,24 @@ const styles = StyleSheet.create({
     backgroundColor:'#6200EA', 
     borderRadius: 8,
     padding: 10,
-    margin: 5
-    
+    margin: 5,
+    color: "#fff"
     }, 
     userPassword:{
     flex:1,
     backgroundColor:'#6200EA',
     borderRadius: 8,
     padding: 10,
-    margin: 5
+    margin: 5,
+    color: "#fff"
     },
     userRepeatPassword:{
     flex:1,
     backgroundColor:'#6200EA',
     borderRadius: 8,
     padding: 10,
-    margin: 5
+    margin: 5,
+    color: "#fff"
     },
     spacer:{
     flex:1,

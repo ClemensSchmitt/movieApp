@@ -4,10 +4,6 @@ import { getAnalytics } from "firebase/analytics";
 import { firebase } from "@react-native-firebase/database";
 import 'firebase/firestore'
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyDC8jhyw-CE9WnQRVwXsC_Lx5DqtLvBhMM",
   authDomain: "movieapp-e2877.firebaseapp.com",
@@ -18,7 +14,7 @@ const firebaseConfig = {
   appId: "1:934637287333:web:09ed175ccfcc7aef44da4c",
   measurementId: "G-JP4Q191WYN"
 };
-// Initialize Firebase
+
 firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
