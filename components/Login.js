@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput} from 'react-native';
 
-const Login = () => {
+const Login = ({navigation}) => {
 
     return (
         <View style={styles.container}>
@@ -31,7 +31,9 @@ const Login = () => {
                 </TextInput>
             </View>
             <View style={styles.spacer}>
-            
+                <Pressable onPress = {() => navigation.navigate("Dashboard")} title='Dashboard' style={styles.buttonStyle}>
+                <Text style={styles.buttonTextStyle}>Dashboard</Text>
+                </Pressable>
             </View>
         </View>
     )
