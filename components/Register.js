@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: '#6200EA',
         height: 50,
-        width: 120,
+
         borderRadius: 8,
         shadowColor: "#000",
         shadowOffset: {

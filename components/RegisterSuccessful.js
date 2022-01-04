@@ -11,7 +11,7 @@ const RegisterSuccessful = ({navigation}) => {
        
            
             <View style={styles.spacer}>
-                <Pressable onPress = {() => navigation.navigate("Lets Go!")} title='Dashboard' style={styles.buttonStyle}>
+                <Pressable onPress = {() => navigation.navigate("Dashboard")} title='Lets Go!' style={styles.buttonStyle}>
                 <Text style={styles.buttonTextStyle}>Dashboard</Text>
                 </Pressable>
             </View>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: '#6200EA',
         height: 50,
-        width: 120,
+
         borderRadius: 8,
         shadowColor: "#000",
         shadowOffset: {

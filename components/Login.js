@@ -31,7 +31,7 @@ const Login = ({navigation}) => {
                 </TextInput>
             </View>
             <View style={styles.spacer}>
-                <Pressable onPress = {() => navigation.navigate("Dashboard")} title='Dashboard' style={styles.buttonStyle}>
+                <Pressable onPress = {() => navigation.navigate("Dashboard")} title='Login' style={styles.buttonStyle}>
                 <Text style={styles.buttonTextStyle}>Dashboard</Text>
                 </Pressable>
                 <Pressable onPress = {() => navigation.navigate("Register")} title='Register' style={styles.buttonStyle}>
@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     buttonStyle: {
         backgroundColor: '#6200EA',
         height: 50,
-        width: 120,
         borderRadius: 8,
         shadowColor: "#000",
         shadowOffset: {
