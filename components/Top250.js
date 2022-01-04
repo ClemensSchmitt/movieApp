@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
+import { StyleSheet, Text, View, Alert} from 'react-native';
 
-const MustWatchList = () => {
+const Top250 = () => {
 
     return (
       <View style={styles.container}>
@@ -19,4 +19,4 @@ const styles = StyleSheet.create({
 }
 );
 
-export default MustWatchList;
+export default Top250;
