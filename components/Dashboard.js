@@ -38,9 +38,14 @@ const Dashboard = ({navigation}) => {
         <Text style={styles.buttonTextStyle}>Recommended</Text>
       </Pressable> 
       <View>
+
       </View>
       </View>
-      
+      <View style={styles.buttonContainerImpressum}>
+      <Pressable onPress = {() => navigation.navigate("Impressum")} title='Impressum' style={styles.buttonStyle}>
+          <Text style={styles.buttonTextStyle}>Impressum</Text>
+      </Pressable>
+      </View>
     </View>
   );
 }
@@ -50,6 +55,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   buttonContainer: {
+    top: 10,
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingVertical: 10, 
+    maxHeight: 80,
+    justifyContent: 'space-around',
+  },
+  buttonContainerImpressum: {
     top: 10,
     flex: 1,
     flexDirection: 'row',
