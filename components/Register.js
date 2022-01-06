@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable} from 'react-native';
+import firebase from "../firebase";
 
 const Register = ({navigation}) => {
 
