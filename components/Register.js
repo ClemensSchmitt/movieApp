@@ -1,20 +1,63 @@
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { get, set } from "firebase/database";
 import React, {useState} from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable} from 'react-native';
+import { StyleSheet, Text, View, Alert, TextInput, Pressable} from 'react-native';
 import firebase from "../firebase";
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getDatabase, ref, child, onValue} from "firebase/database";
+
+
 
 const Register = ({navigation}) => {
-
 
     const [state, setState] = useState({
       email: "",
       password: "",
       repeatPassword: "",
+      id: "",
     });
 
 
     const textChange = (name, value) => {
       setState({...state, [name]: value})
     };
+
+    const writeUserData = () => {
+      if(firebase.db != null){
+        getNewId();
+        set(ref(firebase.db, 'users/userData/' + state.id), {
+          email: state.email,
+          password: state.password,
+        });
+        
+      }
+      else{
+        Alert.alert("Database connection error");
+      }
+    }
+
+    //Returns the id of the new user
+    const getNewId = () => {
+      get(child(ref(firebase.db), 'users/userData'))
+        .then((snapshot) => {
+          if(snapshot.exists()){
+            var id = 1;
+            var data = snapshot.val();
+            for(var entry in data){
+              id++
+            }
+            Alert.alert(id.toString());
+            setState({...state, ["id"]: id.toString()});
+          }
+          else{
+            var id = 1;
+            setState({...state, ["id"]: id.toString()});
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
 
     const register = () => {
       if(state.email == ''){
@@ -27,10 +70,12 @@ const Register = ({navigation}) => {
         Alert.alert("Please repeat your password");
       }
       else{
-        
-        //Email must be unique -- if
-        //Email must contain "@" and "."
-        navigation.navigate("RegisterSuccessful");
+        if(state.password != state.repeatPassword){
+          Alert.alert("Password and repeated password must be the same");
+        }
+        else{
+          writeUserData();
+        }
       }
     }
 
