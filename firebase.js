@@ -1,8 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { firebase } from "@react-native-firebase/database";
+import { getDatabase} from "firebase/database";
 
 
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyDC8jhyw-CE9WnQRVwXsC_Lx5DqtLvBhMM",
   authDomain: "movieapp-e2877.firebaseapp.com",
@@ -14,10 +19,11 @@ const firebaseConfig = {
   measurementId: "G-JP4Q191WYN"
 };
 
-firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig) != null ? initializeApp(firebaseConfig) : "This is null";
+const db = getDatabase(app);
 
-
-export default{
-    firebase
+export default {
+  db,
+  app
 }
-
