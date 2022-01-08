@@ -24,7 +24,6 @@ const Register = ({navigation}) => {
 
     const writeUserData = () => {
       if(firebase.db != null){
-        getNewId();
         set(ref(firebase.db, 'users/userData/' + state.id), {
           email: state.email,
           password: state.password,
@@ -44,9 +43,8 @@ const Register = ({navigation}) => {
             var id = 1;
             var data = snapshot.val();
             for(var entry in data){
-              id++
+              ++id;
             }
-            Alert.alert(id.toString());
             setState({...state, ["id"]: id.toString()});
           }
           else{
@@ -59,15 +57,50 @@ const Register = ({navigation}) => {
         });
     }
 
+    //Könnte durchaus effizienter sein
+    //Stellt für jeden Eintrag eine Abfrage aber da firebase in Gb abrechnet kann man das ignorieren denke ich
+    function isEmailUnique() {
+      for(var i = 1; i < state.id; i++){
+        get(child(ref(firebase.db), 'users/userData/' + i.toString() + "/email"))
+        .then((snapshot) => {
+          if(snapshot.exists()){
+            var data = snapshot.val();
+            //Alert.alert(data + " " + state.email + " " + (state.email === data).toString());
+            if(data === state.email){
+              Alert.alert(state.email + "" + data);
+              return false;
+            }
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+      }
+    }
+
     const register = () => {
+      getNewId();
+
       if(state.email == ''){
         Alert.alert("Please enter an email");
+      }
+      else if(!state.email.includes("@") || !state.email.includes(".")){
+        Alert.alert("Please use an valid email!");
       }
       else if(state.password == ''){
         Alert.alert("Please enter your password");
       }
       else if(state.repeatPassword == ''){
         Alert.alert("Please repeat your password");
+      }
+      else if(state.password != state.repeatPassword){
+        Alert.alert("Please repeat your password");
+      }
+      else if(state.password.length < 8){
+        Alert.alert("The password must contain minimal 8 characters")
+      }
+      else if(isEmailUnique()){
+        Alert.alert("Email already used");
       }
       else{
         if(state.password != state.repeatPassword){
