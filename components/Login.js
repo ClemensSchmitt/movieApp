@@ -29,6 +29,9 @@ const Login = ({navigation}) => {
         if(isUserRegistered()){
           navigation.navigate("Dashboard");
         }
+        else{
+          Alert.alert("Wrong username or password!");
+        }
       }
     }
 
@@ -53,39 +56,44 @@ const Login = ({navigation}) => {
         });
     }
 
-    const [requestedDBState, setRequestedDBState] = useState({
-      email: "",
-      password: "",
-    });
-
     //requestedDBState.email wird noch nicht richtig gesetzt
-    function isUserRegistered() {
+    async function isUserRegistered() {
+      var emailCorrect = false;
+      var passwordCorrect = false;
       for(var i = 1; i < state.id; i++){
         get(child(ref(firebase.db), 'users/userData/' + i.toString() + "/email"))
         .then((snapshot) => {
-          if(snapshot.exists()){
-            //snapshot.val() liefert das richtige ergebnis
-            setRequestedDBState({...requestedDBState, ["email"]: snapshot.val()});
-            Alert.alert(requestedDBState.email);
+          if(snapshot.exists()){          
+            if(snapshot.val() === state.email){
+              emailCorrect = true;
+            }
           }
         })
         .catch((error) => {
           console.error(error);
         });
+
         get(child(ref(firebase.db), 'users/userData/' + i.toString() + "/password"))
         .then((snapshot) => {
           if(snapshot.exists()){
-            setRequestedDBState({...requestedDBState, ["password"]: snapshot.val()});
+            if(snapshot.val() === state.password){            
+              passwordCorrect = true;
+            }
           }
         })
         .catch((error) => {
           console.error(error);
         });
-        
-        if(requestedDBState.password === state.password && requestedDBState.email === state.email){
 
-          Alert.alert(state.password + "" + requestedDBState.password);
+        //Alert.alert("email: " + passwordCorrect.toString() + " password: " + passwordCorrect.toString());
+
+        if(passwordCorrect == true && passwordCorrect == true){
+          
           return true;
+        }
+        else{
+          emailCorrect = false;
+          passwordCorrect = false;
         }
       }
     }
