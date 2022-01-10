@@ -88,7 +88,6 @@ const Login = ({navigation}) => {
         //Alert.alert("email: " + passwordCorrect.toString() + " password: " + passwordCorrect.toString());
 
         if(passwordCorrect == true && passwordCorrect == true){
-          
           return true;
         }
         else{
@@ -118,6 +117,7 @@ const Login = ({navigation}) => {
                 placeholder="Password"
                 placeholderTextColor={"#fff"}
                 onChangeText={(value) => textChange("password", value)}
+                secureTextEntry={true}
                 password={true}
                 autoCorrect={false}
                 >
