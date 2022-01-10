@@ -17,6 +17,7 @@ import RegisterSuccessful from './components/RegisterSuccessful';
 import Impressum from './components/Impressum';
 import Profile from './components/Profile';
 
+import Session from './components/Session'
 
 const Stack = createStackNavigator();
 
