@@ -63,7 +63,7 @@ const Login = ({navigation}) => {
     }
 
     //requestedDBState.email wird noch nicht richtig gesetzt
-    async function isUserRegistered() {
+    function isUserRegistered() {
       var emailCorrect = false;
       var passwordCorrect = false;
       for(var i = 1; i < localState.id; i++){
