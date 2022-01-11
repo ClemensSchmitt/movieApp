@@ -1,12 +1,9 @@
 import React, {useState} from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable} from 'react-native';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-import { getDatabase, ref, child, onValue} from "firebase/database";
-import { get, set } from "firebase/database";
-import firebase from "../firebase";
+import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable, AsyncStorage} from 'react-native';
+import {proxy, useSnapshot} from "valtio";
 
-const Session = () => {
-    const [session, setSession] = useState({
-        user: "",
-    });
-}
+const state = proxy({
+    email: "default",
+});
+
+export default state;

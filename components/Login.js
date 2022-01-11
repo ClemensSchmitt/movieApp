@@ -1,32 +1,38 @@
 import React, {useState} from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable} from 'react-native';
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, snapshotEqual } from 'firebase/firestore/lite';
 import { getDatabase, ref, child, onValue} from "firebase/database";
 import { get, set } from "firebase/database";
 import firebase from "../firebase";
+import state from "./Session";
+import {proxy, useSnapshot} from "valtio";
 
 const Login = ({navigation}) => {
 
-    const [state, setState] = useState({
+    const snap = useSnapshot(state);
+
+    const [localState, setLocalState] = useState({
       email: "",
       password: "",
       id: "",
     });
 
     const textChange = (name, value) => {
-      setState({...state, [name]: value})
+      setLocalState({...localState, [name]: value});
     };
 
     const login = () => {
       getNewId();
-      if(state.email == ''){
+      if(localState.email == ''){
         Alert.alert("Please enter an email");
       }
-      else if(state.password == ''){
+      else if(localState.password == ''){
         Alert.alert("Please enter your password");
       }
       else{
         if(isUserRegistered()){
+          state.session = localState.email;
+          //Alert.alert(state.session);
           navigation.navigate("Dashboard");
         }
         else{
@@ -44,11 +50,11 @@ const Login = ({navigation}) => {
             for(var entry in data){
               ++id;
             }
-            setState({...state, ["id"]: id.toString()});
+            setLocalState({...localState, ["id"]: id.toString()});
           }
           else{
             var id = 1;
-            setState({...state, ["id"]: id.toString()});
+            setLocalState({...localState, ["id"]: id.toString()});
           }
         })
         .catch((error) => {
@@ -60,11 +66,11 @@ const Login = ({navigation}) => {
     async function isUserRegistered() {
       var emailCorrect = false;
       var passwordCorrect = false;
-      for(var i = 1; i < state.id; i++){
+      for(var i = 1; i < localState.id; i++){
         get(child(ref(firebase.db), 'users/userData/' + i.toString() + "/email"))
         .then((snapshot) => {
           if(snapshot.exists()){          
-            if(snapshot.val() === state.email){
+            if(snapshot.val() === localState.email){
               emailCorrect = true;
             }
           }
@@ -76,7 +82,7 @@ const Login = ({navigation}) => {
         get(child(ref(firebase.db), 'users/userData/' + i.toString() + "/password"))
         .then((snapshot) => {
           if(snapshot.exists()){
-            if(snapshot.val() === state.password){            
+            if(snapshot.val() === localState.password){            
               passwordCorrect = true;
             }
           }
@@ -106,6 +112,7 @@ const Login = ({navigation}) => {
 
             <View style={styles.loginMask}>
                 <TextInput 
+                email="default"
                 style={styles.userEmail}
                 placeholder="Email"
                 placeholderTextColor={"#fff"}

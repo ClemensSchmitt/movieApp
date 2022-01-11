@@ -5,12 +5,16 @@ import { StyleSheet, Text, View, Alert, TextInput, Pressable} from 'react-native
 import firebase from "../firebase";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import { getDatabase, ref, child, onValue} from "firebase/database";
+import {proxy, useSnapshot} from "valtio";
 
 
 
 const Register = ({navigation}) => {
 
-    const [state, setState] = useState({
+    const snap = useSnapshot(state);
+
+
+    const [localState, setLocalState] = useState({
       email: "",
       password: "",
       repeatPassword: "",
@@ -19,14 +23,14 @@ const Register = ({navigation}) => {
 
 
     const textChange = (name, value) => {
-      setState({...state, [name]: value})
+      setLocalState({...state, [name]: value})
     };
 
     const writeUserData = () => {
       if(firebase.db != null){
-        set(ref(firebase.db, 'users/userData/' + state.id), {
-          email: state.email,
-          password: state.password,
+        set(ref(firebase.db, 'users/userData/' + localState.id), {
+          email: localState.email,
+          password: localState.password,
         });
         
       }
@@ -45,39 +49,17 @@ const Register = ({navigation}) => {
             for(var entry in data){
               ++id;
             }
-            setState({...state, ["id"]: id.toString()});
+            setLocalState({...localState, ["id"]: id.toString()});
           }
           else{
             var id = 1;
-            setState({...state, ["id"]: id.toString()});
+            setLocalState({...localState, ["id"]: id.toString()});
           }
         })
         .catch((error) => {
           console.error(error);
         });
     }
-
-    /*
-    //Könnte durchaus effizienter sein
-    //Stellt für jeden Eintrag eine Abfrage aber da firebase in Gb abrechnet kann man das ignorieren denke ich
-    function isEmailUnique() {
-      for(var i = 1; i < state.id; i++){
-        get(child(ref(firebase.db), 'users/userData/' + i.toString() + "/email"))
-        .then((snapshot) => {
-          if(snapshot.exists()){
-            var data = snapshot.val();
-            //Alert.alert(data + " " + state.email + " " + (state.email === data).toString());
-            if(data === state.email){
-              return false;
-            }
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-      }
-    }
-    */
 
     async function isEmailUnique() {
       getNewId();
@@ -85,14 +67,15 @@ const Register = ({navigation}) => {
       .then((snapshot) => {
         if(snapshot.exists()){
           //Alert.alert(snapshot.child('3').child('email').val().toString());
-          for(var i = 0; i < parseInt(state.id); i++){
-            if(snapshot.child(i.toString()).child('email').exists() && snapshot.child(i.toString()).child('email').val().toString() === state.email){
+          for(var i = 0; i < parseInt(localState.id); i++){
+            if(snapshot.child(i.toString()).child('email').exists() && snapshot.child(i.toString()).child('email').val().toString() === localState.email){
               Alert.alert("Email already used");
               return false;
             }
           }
           writeUserData();
-          
+          setSession(localState.email);
+          state.session = localState.email;
           navigation.navigate("Dashboard");
         }else{
           writeUserData();
@@ -111,22 +94,22 @@ const Register = ({navigation}) => {
       if(state.email == ''){
         Alert.alert("Please enter an email");
       }
-      else if(!state.email.includes("@") || !state.email.includes(".")){
+      else if(!localState.email.includes("@") || !localState.email.includes(".")){
         Alert.alert("Please use an valid email!");
       }
-      else if(state.password == ''){
+      else if(localState.password == ''){
         Alert.alert("Please enter your password");
       }
-      else if(state.repeatPassword == ''){
+      else if(localState.repeatPassword == ''){
         Alert.alert("Please repeat your password");
       }
-      else if(state.password != state.repeatPassword){
+      else if(localState.password != localState.repeatPassword){
         Alert.alert("Please repeat your password");
       }
-      else if(state.password.length < 8){
+      else if(localState.password.length < 8){
         Alert.alert("The password must contain minimal 8 characters")
       }
-      else if(state.password != state.repeatPassword){
+      else if(localState.password != localState.repeatPassword){
         Alert.alert("Password and repeated password must be equal");
       }
       else{

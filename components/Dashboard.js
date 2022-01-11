@@ -1,7 +1,16 @@
-import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image, Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import {proxy, useSnapshot} from "valtio";
+import state from "./Session";
+
 
 const Dashboard = ({navigation}) => {
+
+  //This is how to use the global Session
+  const snap = useSnapshot(state);
+
+  Alert.alert(state.session);
+  
 
   return (
     <View style={styles.container}>
