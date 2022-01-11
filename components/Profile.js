@@ -30,7 +30,7 @@ const Profile = ({navigation}) => {
             </View>
 
             <View style={styles.buttonContainer}>
-        
+                <Text style={styles.headerTextStyle}>Logout Button</Text>
             </View>
 
             <View style={styles.spacer}>
@@ -57,6 +57,9 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         flexDirection: "column",
+    },
+    header: {
+        flex: 1,
     },
 
     headerTextStyle: {

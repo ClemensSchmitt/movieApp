@@ -16,6 +16,7 @@ import Register from './components/Register';
 import RegisterSuccessful from './components/RegisterSuccessful';
 import Impressum from './components/Impressum';
 import Profile from './components/Profile';
+import Search from './components/Search';
 
 import Session from './components/Session'
 
@@ -30,6 +31,7 @@ const MyStack = () => {
         <Stack.Screen name="RegisterSuccessful" component={RegisterSuccessful} options={{title: "RegisterSuccessful"}} />
         <Stack.Screen name="Profile" component={Profile} options={{title: "Profile"}} />
         <Stack.Screen name="Impressum" component={Impressum} options={{title: "Impressum"}} />
+        <Stack.Screen name="Search" component={Search} options={{title: "Search"}} />
         <Stack.Screen name="Dashboard" component={Dashboard} options={{title: "Dashboard"}} />
         <Stack.Screen name="MustWatchList" component={MustWatchList} options={{title: "Must Watch List"}}/>
         <Stack.Screen name="PersonalRanking" component={PersonalRanking} options={{title: "Personal Ranking"}}/>
@@ -41,5 +43,7 @@ const MyStack = () => {
     </NavigationContainer>
   )
 }
+
+
 
 export default MyStack;

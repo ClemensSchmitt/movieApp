@@ -14,17 +14,19 @@ const Dashboard = ({navigation}) => {
           <Pressable onPress = {() => navigation.navigate("MustWatchList")} title='MustWatchList' style={styles.buttonStyle}>
           <Text style={styles.buttonTextStyle}>Must Watch List</Text>
           </Pressable>
-          <Pressable onPress = {() => navigation.navigate("PersonalRanking")} title='PersonalRanking' style={styles.buttonStyle}>
-          <Text style={styles.buttonTextStyle}>Personal Ranking</Text>
-          </Pressable>
-      </View>
-      <View style={styles.buttonContainer}>
-          <Pressable onPress = {() => navigation.navigate("Favorites")} title='Favorites' style={styles.buttonStyle}>
-          <Text style={styles.buttonTextStyle}>Favorites</Text>
-          </Pressable>
           <Pressable onPress = {() => navigation.navigate("Top250")} title='Top 250' style={styles.buttonStyle}>
           <Text style={styles.buttonTextStyle}>Top 250</Text>
           </Pressable>
+      </View>
+      <View style={styles.buttonContainer}>
+          <Pressable onPress = {() => navigation.navigate("Profile")} title='Profile' style={styles.buttonStyle}>
+          <Text style={styles.buttonTextStyle}>Profile</Text>
+          </Pressable>
+          <Pressable onPress = {() => navigation.navigate("Search")} title='Search' style={styles.buttonStyle}>
+          <Text style={styles.buttonTextStyle}>Search page </Text>
+          </Pressable>
+      
+      
       </View>
       <View style={styles.movies}>
       <Pressable onPress = {() => navigation.navigate("Popular")} title='Popular' style={styles.recommendTextBoxStyle}>
@@ -41,11 +43,7 @@ const Dashboard = ({navigation}) => {
 
       </View>
       </View>
-      <View style={styles.buttonContainerImpressum}>
-      <Pressable onPress = {() => navigation.navigate("Impressum")} title='Impressum' style={styles.buttonStyle}>
-          <Text style={styles.buttonTextStyle}>Impressum</Text>
-      </Pressable>
-      </View>
+      
     </View>
   );
 }
@@ -63,15 +61,7 @@ const styles = StyleSheet.create({
     maxHeight: 80,
     justifyContent: 'space-around',
   },
-  buttonContainerImpressum: {
-    top: 10,
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingVertical: 10, 
-    maxHeight: 80,
-    justifyContent: 'space-around',
-  },
+
   buttonStyle: {
     backgroundColor: '#6200EA',
     height: 50,
