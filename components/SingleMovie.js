@@ -7,17 +7,19 @@ const SingleMovie = (props) => {
     return(
         <View style={styles.movie}>
 
-            <Image source={{uri: IMAGE_API + props.poster_path}} style={{
+            <Image 
+            source={{uri: IMAGE_API + props.poster_path}} 
+            style={{
                 width: '100%',
                 height: '80%',
                 resizeMode: 'contain',
                 flex: 4,
-            }}/>
+            }} 
+            onPress={() => navigator.navigate("Movie", {
+            movieId: props.movieId,
+            })}/>
 
             <Text style={styles.movieTextStyle}> {props.original_title} </Text>
-
-
-            
 
         </View>
     );

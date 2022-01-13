@@ -10,10 +10,14 @@ const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=debe76e8c
 
 
 
-const Popular = () => {
+const TopRated = () => {
+
+
+
+    
 
     const [movies, setMovies] = useState([]);
-    const [time, setTime] = useState(0);
+
 
     useEffect(() => {
         fetch(FEATURED_API)
@@ -39,8 +43,9 @@ const Popular = () => {
                 <TextInput style={styles.searchInput} onChange={() => {}}>
                 
                 </TextInput>
-                
+
                 <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
+                
             </View>
 
             <ScrollView style={styles.moviesContainer}  >
@@ -48,7 +53,7 @@ const Popular = () => {
                 {
                     movies.map((movie)=> {
                         return( 
-                            <SingleMovie poster_path = {movie.poster_path} original_title = {movie.original_title} movieId = {movie.id}></SingleMovie>
+                            <SingleMovie poster_path = {movie.poster_path} original_title = {movie.original_title}></SingleMovie>
                         );
                     })
                 }
@@ -56,6 +61,7 @@ const Popular = () => {
             </ScrollView>
 
         </View>
+
     );
     
 }
@@ -145,4 +151,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Popular;
+export default TopRated;
