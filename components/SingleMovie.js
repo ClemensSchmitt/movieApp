@@ -15,6 +15,10 @@ const SingleMovie = (props) => {
             }}/>
 
             <Text style={styles.movieTextStyle}> {props.original_title} </Text>
+
+
+            
+
         </View>
     );
 }

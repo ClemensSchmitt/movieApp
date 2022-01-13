@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView} from 'react-native';
 
 
 import SingleMovie from "./SingleMovie";
@@ -47,7 +47,7 @@ const Popular = () => {
                 <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
             </View>
 
-            <View style={styles.moviesContainer} >
+            <ScrollView style={styles.moviesContainer}  >
 
                 {
                     movies.map((movie)=> {
@@ -58,7 +58,7 @@ const Popular = () => {
                 }
 
 
-            </View>
+            </ScrollView>
 
         </View>
         
