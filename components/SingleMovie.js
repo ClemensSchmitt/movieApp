@@ -7,6 +7,7 @@ const IMAGE_API = "https://image.tmdb.org/t/p/w1280";
 
 const SingleMovie = (props) => {
     return(
+        
         <View style={styles.movie}>
 
             <Image 

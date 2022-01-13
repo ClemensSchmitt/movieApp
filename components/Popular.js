@@ -1,5 +1,6 @@
 import {React, useState, useEffect} from "react";
 import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
+import SearchBarComponent from "./SearchBarComponent";
 import SingleMovie from "./SingleMovie";
 
 const FEATURED_API = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=debe76e8c00bc3a787ba451864f37299&page=1";
@@ -28,14 +29,7 @@ const Popular = ({navigation}) => {
     return(
        
         <View style={styles.container}>
-            <View style={styles.searchbar}>
-            
-                <TextInput style={styles.searchInput} onChange={() => {}}>
-                
-                </TextInput>
-                
-                <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
-            </View>
+            <SearchBarComponent navigation={navigation}></SearchBarComponent>
 
             <View style={styles.headerBar}>
                 <Text style={styles.headerText}>
@@ -49,7 +43,7 @@ const Popular = ({navigation}) => {
                     movies.map((movie)=> {
                         return( 
                             <Pressable onPress={() => {navigation.navigate("Movie", {movieId: movie.id})}}>
-                                <SingleMovie poster_path = {movie.poster_path} original_title = {movie.original_title}/>
+                                <SingleMovie poster_path = {movie.poster_path} title = {movie.title}/>
                             </Pressable>
                         );
                     })
@@ -68,28 +62,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
       },
-        searchInput: {
-        top: 10,
-        width: 270,
-        height: 35,
-        backgroundColor: '#4527A0',
-        borderRadius: 8,
-      },
-      searchbar: {
-        backgroundColor: '#6200EA',
-        height: 80,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        alignSelf: 'stretch',
-      },
-  
-    searchIcon:{
-        maxWidth: 20,
-        maxHeight: 20,
-        position: 'absolute',
-        right: 50,
-        bottom: 20
-    },
+       
     headerBar:{
       padding: '1%',
       margin: '2%',

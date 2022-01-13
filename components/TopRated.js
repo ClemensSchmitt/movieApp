@@ -1,5 +1,6 @@
 import {React, useState, useEffect} from "react";
 import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView} from 'react-native';
+import SearchBarComponent from "./SearchBarComponent";
 
 
 import SingleMovie from "./SingleMovie";
@@ -10,7 +11,7 @@ const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=debe76e8c
 
 
 
-const TopRated = () => {
+const TopRated = ({navigation}) => {
 
 
 
@@ -38,14 +39,8 @@ const TopRated = () => {
     return(
        
         <View style={styles.container}>
-            <View style={styles.searchbar}>
-            
-                <TextInput style={styles.searchInput} onChange={() => {}}>
-                
-                </TextInput>
-
-                <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
-                
+            <View style={styles.container}>
+                <SearchBarComponent navigation={navigation}></SearchBarComponent>
             </View>
 
             <ScrollView style={styles.moviesContainer}  >

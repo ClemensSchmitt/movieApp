@@ -2,20 +2,26 @@ import { StyleSheet, Text, View, Pressable, Image, Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {proxy, useSnapshot} from "valtio";
 import state from "./Session";
+import {React, useState} from 'react';
+import SearchBarComponent from "./SearchBarComponent";
+
 
 
 const Dashboard = ({navigation}) => {
 
   //This is how to use the global Session
   const snap = useSnapshot(state);  
+  const [searchTitle, setSearchTitle] = useState("");
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchbar}>
-          <TextInput style={styles.searchInput}>
-          </TextInput>
-          <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
-      </View>
+
+
+      
+      <SearchBarComponent navigation={navigation}></SearchBarComponent>
+
+
+
       <View style={styles.buttonContainer}>
           <Pressable onPress = {() => navigation.navigate("MustWatchList")} title='MustWatchList' style={styles.buttonStyle}>
           <Text style={styles.buttonTextStyle}>Must Watch List</Text>
@@ -107,27 +113,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'center',
     height: 20,
   },
-  searchInput: {
-    top: 10,
-    width: 270,
-    height: 35,
-    backgroundColor: '#4527A0',
-    borderRadius: 8,
-  },
-  searchbar: {
-    backgroundColor: '#6200EA',
-    height: 80,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    alignSelf: 'stretch',
-  },
-  searchIcon:{
-    maxWidth: 20,
-    maxHeight: 20,
-    position: 'absolute',
-    right: 50,
-    bottom: 20
-  }
+ 
 });
 
 export default Dashboard;

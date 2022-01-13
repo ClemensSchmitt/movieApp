@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, Scrol
 import SearchBarComponent from "./SearchBarComponent";
 
 
+
 import SingleMovie from "./SingleMovie";
 
 const FEATURED_API = "https://api.themoviedb.org/3/movie/top_rated?api_key=debe76e8c00bc3a787ba451864f37299&language=en-US&page=1";
@@ -11,23 +12,26 @@ const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=debe76e8c
 
 
 
-const Top20 = ({navigation}) => {
+const UserSearch = (props) => {
 
 
 
     
-
+    const searchTitle = props.route.params.searchTitle; 
     const [movies, setMovies] = useState([]);
 
+
+
+    //Get MovieData from TMDB
+
     useEffect(() => {
-        fetch(FEATURED_API)
+        fetch(SEARCH_API + searchTitle.toString())
             .then((res) => res.json())
             .then((data)=> {
                 setMovies(data.results);
-                //Alert.alert((movies[0].title).toString());
+                //Alert.alert((searchTitle).toString());
             })
-
-
+            
             .catch((error) => {
                 console.error(error);
             })
@@ -39,12 +43,12 @@ const Top20 = ({navigation}) => {
        
         <View style={styles.container}>
             <View style={styles.container}>
-                <SearchBarComponent navigation={navigation}></SearchBarComponent>
+                <SearchBarComponent navigation={props.navigation}></SearchBarComponent>
 
             </View>
             <View style={styles.headerBar}>
                 <Text style={styles.headerText}>
-                    Top 20 by User Rating
+                    Search Resuls for 
                 </Text>
             </View>
 
@@ -76,7 +80,28 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
       },
-      
+        searchInput: {
+        top: 10,
+        width: 270,
+        height: 35,
+        backgroundColor: '#4527A0',
+        borderRadius: 8,
+      },
+      searchbar: {
+        backgroundColor: '#6200EA',
+        height: 80,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        alignSelf: 'stretch',
+      },
+  
+    searchIcon:{
+        maxWidth: 20,
+        maxHeight: 20,
+        position: 'absolute',
+        right: 50,
+        bottom: 20
+    },
     headerBar:{
         padding: '1%',
         margin: '2%',
@@ -113,4 +138,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Top20;
+export default UserSearch;

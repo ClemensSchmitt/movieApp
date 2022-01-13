@@ -17,6 +17,7 @@ import RegisterSuccessful from './components/RegisterSuccessful';
 import Impressum from './components/Impressum';
 import Profile from './components/Profile';
 import Movie from './components/Movie';
+import UserSearch from './components/UserSearch';
 
 import Session from './components/Session'
 import TopRated from './components/TopRated';
@@ -40,6 +41,7 @@ const MyStack = () => {
         <Stack.Screen name="Popular" component={Popular} options={{title: "Popular"}}/>
         <Stack.Screen name="Recommended" component={Recommended} options={{title: "Recommended"}}/>
         <Stack.Screen name="Movie" component={Movie} options={{title: "Movie"}}/>
+        <Stack.Screen name="UserSearch" component={UserSearch} options={{title: "UserSearch"}}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
