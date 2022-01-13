@@ -3,18 +3,21 @@ import { StyleSheet,View, Text, TouchableOpacity, Alert, TextInput, Image } from
 
 const IMAGE_API = "https://image.tmdb.org/t/p/w1280";
 
+
+
 const SingleMovie = (props) => {
     return(
         <View style={styles.movie}>
 
             <Image source={{uri: IMAGE_API + props.poster_path}} style={{
                 width: '100%',
-                height: '80%',
-                resizeMode: 'contain',
+                //height: '80%',
+                resizeMode: 'cover',
                 flex: 4,
+                borderRadius: 8,
             }}/>
 
-            <Text style={styles.movieTextStyle}> {props.original_title} </Text>
+            <Text style={styles.movieTextStyle}> {props.title} </Text>
 
 
             
@@ -38,7 +41,8 @@ const styles = StyleSheet.create({
 
     },
     movieTextStyle:{
-        borderRadius: 8,
+        borderBottomLeftRadius: 8,
+        borderBottomRightRadius: 8,
         width: '100%',
         backgroundColor: '#000000',
         flex: 1,

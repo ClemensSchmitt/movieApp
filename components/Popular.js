@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView,} from 'react-native';
 
 
 import SingleMovie from "./SingleMovie";
@@ -25,7 +25,7 @@ const Popular = () => {
             .then((res) => res.json())
             .then((data)=> {
                 setMovies(data.results);
-                //Alert.alert((movies[0].original_title).toString());
+                //Alert.alert((movies[0].title).toString());
             })
 
 
@@ -47,12 +47,12 @@ const Popular = () => {
                 <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
             </View>
 
-            <ScrollView style={styles.moviesContainer}  >
+            <ScrollView contentContainerStyle={styles.contentMoviesContainer} style={styles.moviesContainer} >
 
                 {
                     movies.map((movie)=> {
                         return( 
-                            <SingleMovie poster_path = {movie.poster_path} original_title = {movie.original_title}></SingleMovie>
+                            <SingleMovie poster_path = {movie.poster_path} title = {movie.title}></SingleMovie>
                         );
                     })
                 }
@@ -89,30 +89,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignSelf: 'stretch',
       },
-    movie:{
-        backgroundColor: '#6200EA',
-        width: '46%',
-        height: 330,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        alignSelf: 'stretch',
-        margin: '2%',
-        flexDirection: "column",
-
-    },
-    movieTextStyle:{
-        borderRadius: 8,
-        width: '100%',
-        backgroundColor: '#000000',
-        flex: 1,
-        textAlignVertical: 'center',
-        textAlign: 'center',
-        color: '#FFF',
-        textShadowColor: '#000000',
-        textShadowRadius: 10,
-
-    },
+  
     searchIcon:{
         maxWidth: 20,
         maxHeight: 20,
@@ -120,34 +97,18 @@ const styles = StyleSheet.create({
         right: 50,
         bottom: 20
     },
+    contentMoviesContainer:{
+      justifyContent: 'flex-start',
+
+      flexDirection: 'column'
+      
+    },
     moviesContainer:{
-        flexWrap: "wrap",
-    },
+     
 
-    movie:{
-        backgroundColor: '#6200EA',
-        width: '46%',
-        height: 330,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        alignSelf: 'stretch',
-        margin: '2%',
-        flexDirection: "column",
+  	  flexDirection: 'column'
 
     },
-    movieTextStyle:{
-        borderRadius: 8,
-        width: '100%',
-        backgroundColor: '#000000',
-        flex: 1,
-        textAlignVertical: 'center',
-        textAlign: 'center',
-        color: '#FFF',
-        textShadowColor: '#000000',
-        textShadowRadius: 10,
-
-    }
 
 
     
