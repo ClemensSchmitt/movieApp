@@ -7,10 +7,7 @@ import state from "./Session";
 const Dashboard = ({navigation}) => {
 
   //This is how to use the global Session
-  const snap = useSnapshot(state);
-
-  Alert.alert(state.session);
-  
+  const snap = useSnapshot(state);  
 
   return (
     <View style={styles.container}>
