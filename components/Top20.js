@@ -1,16 +1,20 @@
 import {React, useState, useEffect} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView,} from 'react-native';
 
 
 import SingleMovie from "./SingleMovie";
 
-const FEATURED_API = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=debe76e8c00bc3a787ba451864f37299&page=1";
+const FEATURED_API = "https://api.themoviedb.org/3/movie/top_rated?api_key=debe76e8c00bc3a787ba451864f37299&language=en-US&page=1";
 
 const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=debe76e8c00bc3a787ba451864f37299&query=";
 
 
 
-const Popular = ({navigation}) => {
+const Top20 = () => {
+
+
+
+    
 
     const [movies, setMovies] = useState([]);
 
@@ -19,7 +23,7 @@ const Popular = ({navigation}) => {
             .then((res) => res.json())
             .then((data)=> {
                 setMovies(data.results);
-                //Alert.alert((movies[0].original_title).toString());
+                //Alert.alert((movies[0].title).toString());
             })
 
 
@@ -38,13 +42,11 @@ const Popular = ({navigation}) => {
                 <TextInput style={styles.searchInput} onChange={() => {}}>
                 
                 </TextInput>
-                
                 <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
             </View>
-
             <View style={styles.headerBar}>
                 <Text style={styles.headerText}>
-                    Most Popular
+                    Top 20 by User Rating
                 </Text>
             </View>
 
@@ -53,16 +55,19 @@ const Popular = ({navigation}) => {
                 {
                     movies.map((movie)=> {
                         return( 
-                            <Pressable onPress={() => {navigation.navigate("Movie", {movieId: movie.id})}}>
-                                <SingleMovie poster_path = {movie.poster_path} original_title = {movie.original_title}/>
-                            </Pressable>
+                            <SingleMovie poster_path = {movie.poster_path} title = {movie.title}></SingleMovie>
                         );
                     })
                 }
 
+
             </ScrollView>
 
         </View>
+        
+        
+        
+    
     );
     
 }
@@ -96,23 +101,23 @@ const styles = StyleSheet.create({
         bottom: 20
     },
     headerBar:{
-      padding: '1%',
-      margin: '2%',
-      backgroundColor: '#6200EA',
-      borderRadius: 8,
-      opacity: 50,
+        padding: '1%',
+        margin: '2%',
+        backgroundColor: '#6200EA',
+        borderRadius: 8,
+        opacity: 50,
 
 
-  },
-  headerText:{
-      textAlign: 'center',
-      textAlignVertical: 'center',
-      color: '#fff',
-      fontSize: 30,
-      
-      textShadowColor: '#000000',
-      textShadowRadius: 10,
-  },
+    },
+    headerText:{
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        color: '#fff',
+        fontSize: 30,
+        
+        textShadowColor: '#000000',
+        textShadowRadius: 10,
+    },
     contentMoviesContainer:{
       justifyContent: 'flex-start',
 
@@ -131,4 +136,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Popular;
+export default Top20;

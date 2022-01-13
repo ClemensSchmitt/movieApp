@@ -16,11 +16,9 @@ const SingleMovie = (props) => {
                 //height: '80%',
                 resizeMode: 'cover',
                 flex: 4,
-                borderRadius: 8,
-            }} 
-            onPress={() => navigator.navigate("Movie", {
-            movieId: props.movieId,
-            })}/>
+                borderTopLeftRadius: 8,
+                borderTopRightRadius: 8,
+            }}/>
 
             <Text style={styles.movieTextStyle}> {props.title} </Text>
 
