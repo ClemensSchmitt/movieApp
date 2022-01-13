@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
 
 
 import SingleMovie from "./SingleMovie";
@@ -10,7 +10,7 @@ const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=debe76e8c
 
 
 
-const Popular = () => {
+const Popular = ({navigation}) => {
 
     const [movies, setMovies] = useState([]);
     const [time, setTime] = useState(0);
@@ -48,7 +48,9 @@ const Popular = () => {
                 {
                     movies.map((movie)=> {
                         return( 
-                            <SingleMovie poster_path = {movie.poster_path} original_title = {movie.original_title} movieId = {movie.id}></SingleMovie>
+                            <Pressable onPress={() => {navigation.navigate("Movie", {movieId: movie.id})}}>
+                                <SingleMovie poster_path = {movie.poster_path} original_title = {movie.original_title}/>
+                            </Pressable>
                         );
                     })
                 }

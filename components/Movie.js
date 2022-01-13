@@ -5,9 +5,9 @@ const IMAGE_API = "https://image.tmdb.org/t/p/w1280";
 
 const FEATURED_API = "https://api.themoviedb.org/3/movie/XXXXXXX?api_key=debe76e8c00bc3a787ba451864f37299";
 
-const Movie = () => {
+const Movie = (props) => {
 
-  const {movieId} = this.props.route.params;
+  const movieId = props.route.params;
 
   const [movieState, setMovieState] = useState({
     title: "",
@@ -21,10 +21,10 @@ const Movie = () => {
     fetch(dataPath)
     .then((res) => res.json())
     .then((data)=> {
-      setMovieState({...localState, ["title"]: data.original_title});
-      setMovieState({...localState, ["posterPath"]: data.original_title});
-      setMovieState({...localState, ["genres"]: data.original_title});
-      setMovieState({...localState, ["description"]: data.original_title});
+      setMovieState({...movieState, ["title"]: data.original_title});
+      setMovieState({...movieState, ["posterPath"]: data.original_title});
+      setMovieState({...movieState, ["genres"]: data.original_title});
+      setMovieState({...movieState, ["description"]: data.original_title});
     })
     .catch((error) => {
         console.error(error);
@@ -40,17 +40,19 @@ const Movie = () => {
           <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
         </View>
 
-        <View>
-          <Text>
+        <View style={styles.content}>
+          <Text style={styles.title}>
             {movieState.title}
           </Text>
+          <View>
           <Text>
             {movieState.genres}
           </Text>
+          </View>
           <View>
 
           </View>
-          <Image source={{uri: IMAGE_API + posterPath}} style={{
+          <Image source={{uri: IMAGE_API + movieState.posterPath}} style={{
                 width: '100%',
                 height: '80%',
                 resizeMode: 'contain',
