@@ -62,7 +62,7 @@ const Register = ({navigation}) => {
         });
     }
 
-    async function isEmailUnique() {
+    function isEmailUnique() {
       getNewId();
       get(child(ref(firebase.db), 'users/userData/'))
       .then((snapshot) => {
