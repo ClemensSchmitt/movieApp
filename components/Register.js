@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, Alert, TextInput, Pressable} from 'react-native
 import firebase from "../firebase";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import { getDatabase, ref, child, onValue} from "firebase/database";
+import state from "./Session";
 import {proxy, useSnapshot} from "valtio";
 
 
@@ -23,7 +24,7 @@ const Register = ({navigation}) => {
 
 
     const textChange = (name, value) => {
-      setLocalState({...state, [name]: value})
+      setLocalState({...localState, [name]: value})
     };
 
     const writeUserData = () => {
@@ -61,7 +62,7 @@ const Register = ({navigation}) => {
         });
     }
 
-    async function isEmailUnique() {
+    function isEmailUnique() {
       getNewId();
       get(child(ref(firebase.db), 'users/userData/'))
       .then((snapshot) => {
@@ -74,7 +75,6 @@ const Register = ({navigation}) => {
             }
           }
           writeUserData();
-          setSession(localState.email);
           state.session = localState.email;
           navigation.navigate("Dashboard");
         }else{
@@ -91,7 +91,7 @@ const Register = ({navigation}) => {
     const register = () => {
       getNewId();
 
-      if(state.email == ''){
+      if(localState.email == ''){
         Alert.alert("Please enter an email");
       }
       else if(!localState.email.includes("@") || !localState.email.includes(".")){

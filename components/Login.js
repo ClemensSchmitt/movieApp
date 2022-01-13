@@ -21,6 +21,8 @@ const Login = ({navigation}) => {
       setLocalState({...localState, [name]: value});
     };
 
+    const [loginMassage, setLoginMassage] = useState("");
+
     const login = () => {
       getNewId();
       if(localState.email == ''){
@@ -30,14 +32,8 @@ const Login = ({navigation}) => {
         Alert.alert("Please enter your password");
       }
       else{
-        if(isUserRegistered()){
-          state.session = localState.email;
-          //Alert.alert(state.session);
-          navigation.navigate("Dashboard");
-        }
-        else{
-          Alert.alert("Wrong username or password!");
-        }
+        isUserRegistered(); 
+        
       }
     }
 
@@ -64,43 +60,27 @@ const Login = ({navigation}) => {
 
     //requestedDBState.email wird noch nicht richtig gesetzt
     function isUserRegistered() {
-      var emailCorrect = false;
-      var passwordCorrect = false;
-      for(var i = 1; i < localState.id; i++){
-        get(child(ref(firebase.db), 'users/userData/' + i.toString() + "/email"))
-        .then((snapshot) => {
-          if(snapshot.exists()){          
-            if(snapshot.val() === localState.email){
-              emailCorrect = true;
+      get(child(ref(firebase.db), 'users/userData/'))
+      .then((snapshot) => {
+        if(snapshot.exists()){          
+          for(var i = 1; i < localState.id; i++){
+            if(localState.email === snapshot.child(i.toString()).child("email").val().toString() && localState.password === snapshot.child(i.toString()).child("password").val().toString()){
+              state.session = localState.email;
+              navigation.navigate("Dashboard");
+              return;
             }
           }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-
-        get(child(ref(firebase.db), 'users/userData/' + i.toString() + "/password"))
-        .then((snapshot) => {
-          if(snapshot.exists()){
-            if(snapshot.val() === localState.password){            
-              passwordCorrect = true;
-            }
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-
-        //Alert.alert("email: " + passwordCorrect.toString() + " password: " + passwordCorrect.toString());
-
-        if(passwordCorrect == true && passwordCorrect == true){
-          return true;
         }
         else{
-          emailCorrect = false;
-          passwordCorrect = false;
+          Alert.alert("Can't reach firebase db");
         }
-      }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+      setTimeout(() => {
+        setLoginMassage("Wrong username or password!");
+      }, 1000);
     }
 
     return (
@@ -109,6 +89,8 @@ const Login = ({navigation}) => {
             <View style={styles.logoPicture}>
 
             </View>
+
+            <Text>{loginMassage}</Text>
 
             <View style={styles.loginMask}>
                 <TextInput 
