@@ -10,9 +10,14 @@ const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=debe76e8c
 
 
 
-const Popular = () => {
+const TopRated = () => {
+
+
+
+    
 
     const [movies, setMovies] = useState([]);
+
 
     useEffect(() => {
         fetch(FEATURED_API)
@@ -38,22 +43,17 @@ const Popular = () => {
                 <TextInput style={styles.searchInput} onChange={() => {}}>
                 
                 </TextInput>
-                
+
                 <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
+                
             </View>
 
-            <View style={styles.headerBar}>
-                <Text style={styles.headerText}>
-                    Most Popular
-                </Text>
-            </View>
-
-            <ScrollView contentContainerStyle={styles.contentMoviesContainer} style={styles.moviesContainer} >
+            <ScrollView style={styles.moviesContainer}  >
 
                 {
                     movies.map((movie)=> {
                         return( 
-                            <SingleMovie poster_path = {movie.poster_path} original_title = {movie.original_title} movieId = {movie.id}></SingleMovie>
+                            <SingleMovie poster_path = {movie.poster_path} original_title = {movie.original_title}></SingleMovie>
                         );
                     })
                 }
@@ -61,6 +61,7 @@ const Popular = () => {
             </ScrollView>
 
         </View>
+
     );
     
 }
@@ -85,7 +86,30 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignSelf: 'stretch',
       },
-  
+    movie:{
+        backgroundColor: '#6200EA',
+        width: '46%',
+        height: 330,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        alignSelf: 'stretch',
+        margin: '2%',
+        flexDirection: "column",
+
+    },
+    movieTextStyle:{
+        borderRadius: 8,
+        width: '100%',
+        backgroundColor: '#000000',
+        flex: 1,
+        textAlignVertical: 'center',
+        textAlign: 'center',
+        color: '#FFF',
+        textShadowColor: '#000000',
+        textShadowRadius: 10,
+
+    },
     searchIcon:{
         maxWidth: 20,
         maxHeight: 20,
@@ -93,40 +117,38 @@ const styles = StyleSheet.create({
         right: 50,
         bottom: 20
     },
-    headerBar:{
-      padding: '1%',
-      margin: '2%',
-      backgroundColor: '#6200EA',
-      borderRadius: 8,
-      opacity: 50,
-
-
-  },
-  headerText:{
-      textAlign: 'center',
-      textAlignVertical: 'center',
-      color: '#fff',
-      fontSize: 30,
-      
-      textShadowColor: '#000000',
-      textShadowRadius: 10,
-  },
-    contentMoviesContainer:{
-      justifyContent: 'flex-start',
-
-      flexDirection: 'column'
-      
-    },
     moviesContainer:{
-     
+        flexWrap: "wrap",
+    },
 
-  	  flexDirection: 'column'
+    movie:{
+        backgroundColor: '#6200EA',
+        width: '46%',
+        height: 330,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        alignSelf: 'stretch',
+        margin: '2%',
+        flexDirection: "column",
 
     },
+    movieTextStyle:{
+        borderRadius: 8,
+        width: '100%',
+        backgroundColor: '#000000',
+        flex: 1,
+        textAlignVertical: 'center',
+        textAlign: 'center',
+        color: '#FFF',
+        textShadowColor: '#000000',
+        textShadowRadius: 10,
+
+    }
 
 
     
 });
 
 
-export default Popular;
+export default TopRated;

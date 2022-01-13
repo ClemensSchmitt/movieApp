@@ -9,7 +9,9 @@ const SingleMovie = (props) => {
     return(
         <View style={styles.movie}>
 
-            <Image source={{uri: IMAGE_API + props.poster_path}} style={{
+            <Image 
+            source={{uri: IMAGE_API + props.poster_path}} 
+            style={{
                 width: '100%',
                 //height: '80%',
                 resizeMode: 'cover',
@@ -19,9 +21,6 @@ const SingleMovie = (props) => {
             }}/>
 
             <Text style={styles.movieTextStyle}> {props.title} </Text>
-
-
-            
 
         </View>
     );

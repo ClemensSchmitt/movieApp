@@ -16,9 +16,10 @@ import Register from './components/Register';
 import RegisterSuccessful from './components/RegisterSuccessful';
 import Impressum from './components/Impressum';
 import Profile from './components/Profile';
-
+import Movie from './components/Movie';
 
 import Session from './components/Session'
+import TopRated from './components/TopRated';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +39,7 @@ const MyStack = () => {
         <Stack.Screen name="Top20" component={Top20} options={{title: "Top 20"}}/>
         <Stack.Screen name="Popular" component={Popular} options={{title: "Popular"}}/>
         <Stack.Screen name="Recommended" component={Recommended} options={{title: "Recommended"}}/>
+        <Stack.Screen name="Movie" component={Movie} options={{title: "Movie"}}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
