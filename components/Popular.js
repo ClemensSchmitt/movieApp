@@ -1,7 +1,5 @@
 import {React, useState, useEffect} from "react";
 import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
-
-
 import SingleMovie from "./SingleMovie";
 
 const FEATURED_API = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=debe76e8c00bc3a787ba451864f37299&page=1";
@@ -19,7 +17,6 @@ const Popular = ({navigation}) => {
             .then((res) => res.json())
             .then((data)=> {
                 setMovies(data.results);
-                //Alert.alert((movies[0].original_title).toString());
             })
 
 
@@ -27,8 +24,6 @@ const Popular = ({navigation}) => {
                 console.error(error);
             })
     },[]);
-
-    //setMovies([...movies, 1]);
 
     return(
        

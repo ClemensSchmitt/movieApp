@@ -75,7 +75,7 @@ const Register = ({navigation}) => {
             }
           }
           writeUserData();
-          state.session = localState.email;
+          state.id = localState.id;
           navigation.navigate("Dashboard");
         }else{
           writeUserData();

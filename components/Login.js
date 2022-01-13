@@ -65,7 +65,7 @@ const Login = ({navigation}) => {
         if(snapshot.exists()){          
           for(var i = 1; i < localState.id; i++){
             if(localState.email === snapshot.child(i.toString()).child("email").val().toString() && localState.password === snapshot.child(i.toString()).child("password").val().toString()){
-              state.session = localState.email;
+              state.id = i;
               navigation.navigate("Dashboard");
               return;
             }
@@ -80,7 +80,7 @@ const Login = ({navigation}) => {
       });
       setTimeout(() => {
         setLoginMassage("Wrong username or password!");
-      }, 1000);
+      }, 1500);
     }
 
     return (

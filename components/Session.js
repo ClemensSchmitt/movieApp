@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable, 
 import {proxy, useSnapshot} from "valtio";
 
 const state = proxy({
-    email: "default",
+    id: 0,
 });
 
 export default state;

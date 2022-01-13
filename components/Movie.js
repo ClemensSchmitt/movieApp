@@ -1,5 +1,11 @@
 import {React, useState, useEffect} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
+import { getFirestore, collection, getDocs, snapshotEqual } from 'firebase/firestore/lite';
+import { getDatabase, ref, child, onValue} from "firebase/database";
+import { get, set } from "firebase/database";
+import firebase from "../firebase";
+import state from "./Session";
+import {proxy, useSnapshot} from "valtio";
 
 const IMAGE_API = "https://image.tmdb.org/t/p/w1280";
 
@@ -12,7 +18,6 @@ const Movie = (props) => {
   const [movieState, setMovieState] = useState({
     title: "",
     posterPath: "",
-    genres: "",    
     description: "",
   });
 
@@ -21,16 +26,21 @@ const Movie = (props) => {
     fetch(dataPath)
     .then((res) => res.json())
     .then((data)=> {
-      setMovieState({...movieState, ["title"]: data.original_title});
-      setMovieState({...movieState, ["posterPath"]: data.original_title});
-      setMovieState({...movieState, ["genres"]: data.original_title});
-      setMovieState({...movieState, ["description"]: data.original_title});
-      Alert.alert()
+      setMovieState({...movieState, ["title"]: data.original_title, ["posterPath"]: data.poster_path, ["description"]: data.overview});
     })
     .catch((error) => {
         console.error(error);
     })
   }, []);
+
+  const addToFavorites = (id) => {
+    Alert.alert("writing at " + id)
+  }
+
+  const addToWatchList = (id) => {
+    Alert.alert("writing at " + id)
+  }
+
 
   return (
     <View style={styles.container}>
@@ -46,8 +56,16 @@ const Movie = (props) => {
             {movieState.title}
           </Text>
           <View>
+            <Pressable onPress = {() => addToWatchList(state.id)}>
+            <Text>Add Watchlist</Text> 
+            </Pressable>
+            <Pressable onPress = {() => addToFavorites(state.id)}>
+            <Text>Favorites</Text>
+            </Pressable>    
+          </View>
+          <View>
           <Text>
-            {movieState.genres}
+            {movieState.description}
           </Text>
           </View>
           <View>
