@@ -7,7 +7,7 @@ const FEATURED_API = "https://api.themoviedb.org/3/movie/XXXXXXX?api_key=debe76e
 
 const Movie = (props) => {
 
-  const movieId = props.route.params;
+  const movieId = props.route.params.movieId;
 
   const [movieState, setMovieState] = useState({
     title: "",
@@ -25,6 +25,7 @@ const Movie = (props) => {
       setMovieState({...movieState, ["posterPath"]: data.original_title});
       setMovieState({...movieState, ["genres"]: data.original_title});
       setMovieState({...movieState, ["description"]: data.original_title});
+      Alert.alert()
     })
     .catch((error) => {
         console.error(error);
