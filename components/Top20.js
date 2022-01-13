@@ -4,13 +4,13 @@ import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, Scrol
 
 import SingleMovie from "./SingleMovie";
 
-const FEATURED_API = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=debe76e8c00bc3a787ba451864f37299&page=1";
+const FEATURED_API = "https://api.themoviedb.org/3/movie/top_rated?api_key=debe76e8c00bc3a787ba451864f37299&language=en-US&page=1";
 
 const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=debe76e8c00bc3a787ba451864f37299&query=";
 
 
 
-const Popular = () => {
+const Top20 = () => {
 
 
 
@@ -44,10 +44,9 @@ const Popular = () => {
                 </TextInput>
                 <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
             </View>
-
             <View style={styles.headerBar}>
                 <Text style={styles.headerText}>
-                    Most Popular
+                    Top 20 by User Rating
                 </Text>
             </View>
 
@@ -102,23 +101,23 @@ const styles = StyleSheet.create({
         bottom: 20
     },
     headerBar:{
-      padding: '1%',
-      margin: '2%',
-      backgroundColor: '#6200EA',
-      borderRadius: 8,
-      opacity: 50,
+        padding: '1%',
+        margin: '2%',
+        backgroundColor: '#6200EA',
+        borderRadius: 8,
+        opacity: 50,
 
 
-  },
-  headerText:{
-      textAlign: 'center',
-      textAlignVertical: 'center',
-      color: '#fff',
-      fontSize: 30,
-      
-      textShadowColor: '#000000',
-      textShadowRadius: 10,
-  },
+    },
+    headerText:{
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        color: '#fff',
+        fontSize: 30,
+        
+        textShadowColor: '#000000',
+        textShadowRadius: 10,
+    },
     contentMoviesContainer:{
       justifyContent: 'flex-start',
 
@@ -137,4 +136,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Popular;
+export default Top20;

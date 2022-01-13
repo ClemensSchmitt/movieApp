@@ -14,7 +14,8 @@ const SingleMovie = (props) => {
                 //height: '80%',
                 resizeMode: 'cover',
                 flex: 4,
-                borderRadius: 8,
+                borderTopLeftRadius: 8,
+                borderTopRightRadius: 8,
             }}/>
 
             <Text style={styles.movieTextStyle}> {props.title} </Text>

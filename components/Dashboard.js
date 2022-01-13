@@ -20,8 +20,8 @@ const Dashboard = ({navigation}) => {
           <Pressable onPress = {() => navigation.navigate("MustWatchList")} title='MustWatchList' style={styles.buttonStyle}>
           <Text style={styles.buttonTextStyle}>Must Watch List</Text>
           </Pressable>
-          <Pressable onPress = {() => navigation.navigate("Top250")} title='Top 250' style={styles.buttonStyle}>
-          <Text style={styles.buttonTextStyle}>Top 250</Text>
+          <Pressable onPress = {() => navigation.navigate("Top20")} title='Top20' style={styles.buttonStyle}>
+          <Text style={styles.buttonTextStyle}>Top 20</Text>
           </Pressable>
       </View>
       <View style={styles.buttonContainer}>
