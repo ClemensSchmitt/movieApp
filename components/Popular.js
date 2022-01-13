@@ -43,7 +43,7 @@ const Popular = () => {
                 <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
             </View>
 
-            <ScrollView style={styles.moviesContainer}  >
+            <ScrollView contentContainerStyle={styles.contentMoviesContainer} style={styles.moviesContainer} >
 
                 {
                     movies.map((movie)=> {
@@ -80,30 +80,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignSelf: 'stretch',
       },
-    movie:{
-        backgroundColor: '#6200EA',
-        width: '46%',
-        height: 330,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        alignSelf: 'stretch',
-        margin: '2%',
-        flexDirection: "column",
-
-    },
-    movieTextStyle:{
-        borderRadius: 8,
-        width: '100%',
-        backgroundColor: '#000000',
-        flex: 1,
-        textAlignVertical: 'center',
-        textAlign: 'center',
-        color: '#FFF',
-        textShadowColor: '#000000',
-        textShadowRadius: 10,
-
-    },
+  
     searchIcon:{
         maxWidth: 20,
         maxHeight: 20,
@@ -111,34 +88,18 @@ const styles = StyleSheet.create({
         right: 50,
         bottom: 20
     },
+    contentMoviesContainer:{
+      justifyContent: 'flex-start',
+
+      flexDirection: 'column'
+      
+    },
     moviesContainer:{
-        flexWrap: "wrap",
-    },
+     
 
-    movie:{
-        backgroundColor: '#6200EA',
-        width: '46%',
-        height: 330,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        alignSelf: 'stretch',
-        margin: '2%',
-        flexDirection: "column",
+  	  flexDirection: 'column'
 
     },
-    movieTextStyle:{
-        borderRadius: 8,
-        width: '100%',
-        backgroundColor: '#000000',
-        flex: 1,
-        textAlignVertical: 'center',
-        textAlign: 'center',
-        color: '#FFF',
-        textShadowColor: '#000000',
-        textShadowRadius: 10,
-
-    }
 
 
     
