@@ -6,6 +6,7 @@ import { get, set } from "firebase/database";
 import firebase from "../firebase";
 import state from "./Session";
 import {proxy, useSnapshot} from "valtio";
+import Favorites from "./Favorites";
 
 const IMAGE_API = "https://image.tmdb.org/t/p/w1280";
 
@@ -33,12 +34,47 @@ const Movie = (props) => {
     })
   }, []);
 
+
+  const getNewId = (path) => {
+    get(child(ref(firebase.db), 'users/userData/' + path))
+      .then((snapshot) => {
+        if(snapshot.exists()){
+          var id = 1;
+          var data = snapshot.val();
+          for(var entry in data){
+            ++id;
+          }
+          return id;
+        }
+        else{
+          return 1;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   const addToFavorites = (id) => {
-    Alert.alert("writing at " + id)
+    /*if(firebase.db != null){
+      set(ref(firebase.db, 'users/userData/' + id.toString() + '/favorites'), {
+        movieId: movieId.toString
+      });
+    }
+    else{
+      Alert.alert("Database connection error");
+    }*/
   }
 
   const addToWatchList = (id) => {
-    Alert.alert("writing at " + id)
+    /*if(firebase.db != null){
+      set(ref(firebase.db, 'users/userData/' + id.toString() + '/watchlist'), {
+        movieId: movieId.toString
+      });
+    }
+    else{
+      Alert.alert("Database connection error");
+    }*/
   }
 
 
@@ -46,20 +82,18 @@ const Movie = (props) => {
     <View style={styles.container}>
         <View style={styles.searchbar}>
           <TextInput style={styles.searchInput}>
-          
           </TextInput>
           <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
         </View>
-
         <View style={styles.content}>
           <Text style={styles.title}>
             {movieState.title}
           </Text>
           <View>
-            <Pressable onPress = {() => addToWatchList(state.id)}>
+            <Pressable onPress = {() => addToWatchList()}>
             <Text>Add Watchlist</Text> 
             </Pressable>
-            <Pressable onPress = {() => addToFavorites(state.id)}>
+            <Pressable onPress = {() => addToFavorites()}>
             <Text>Favorites</Text>
             </Pressable>    
           </View>
@@ -69,7 +103,6 @@ const Movie = (props) => {
           </Text>
           </View>
           <View>
-
           </View>
           <Image source={{uri: IMAGE_API + movieState.posterPath}} style={{
                 width: '100%',

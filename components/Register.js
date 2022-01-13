@@ -33,7 +33,6 @@ const Register = ({navigation}) => {
           email: localState.email,
           password: localState.password,
         });
-        
       }
       else{
         Alert.alert("Database connection error");
