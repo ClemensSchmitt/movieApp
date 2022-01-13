@@ -31,8 +31,8 @@ const Dashboard = ({navigation}) => {
           <Pressable onPress = {() => navigation.navigate("Profile")} title='Profile' style={styles.buttonStyle}>
           <Text style={styles.buttonTextStyle}>Profile</Text>
           </Pressable>
-          <Pressable onPress = {() => navigation.navigate("Search")} title='Search' style={styles.buttonStyle}>
-          <Text style={styles.buttonTextStyle}>Search page </Text>
+          <Pressable onPress = {() => navigation.navigate("Popular")} title='Popular' style={styles.buttonStyle}>
+          <Text style={styles.buttonTextStyle}>Popular</Text>
           </Pressable>
       
       
