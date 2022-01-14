@@ -1,7 +1,7 @@
 import {React, useState, useEffect} from "react";
 import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
 import { getFirestore, collection, getDocs, snapshotEqual } from 'firebase/firestore/lite';
-import { getDatabase, ref, child, onValue} from "firebase/database";
+import { getDatabase, ref, child, onValue, push} from "firebase/database";
 import { get, set } from "firebase/database";
 import firebase from "../firebase";
 import state from "./Session";
@@ -35,47 +35,28 @@ const Movie = (props) => {
     })
   }, []);
 
-
-  const getNewId = (path) => {
-    get(child(ref(firebase.db), 'users/userData/' + path))
-      .then((snapshot) => {
-        if(snapshot.exists()){
-          var id = 1;
-          var data = snapshot.val();
-          for(var entry in data){
-            ++id;
-          }
-          return id;
-        }
-        else{
-          return 1;
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
-
-  const addToFavorites = (id) => {
-    /*if(firebase.db != null){
-      set(ref(firebase.db, 'users/userData/' + id.toString() + '/favorites'), {
-        movieId: movieId.toString
-      });
+  const addToFavorites = () => {
+    if(firebase.db != null){
+      const db = getDatabase();
+      var reference = ref(firebase.db, 'users/userData/' + state.id + '/favorites');
+      const childRef = push(reference);
+      set(childRef, {movieId});
     }
     else{
       Alert.alert("Database connection error");
-    }*/
+    }
   }
 
-  const addToWatchList = (id) => {
-    /*if(firebase.db != null){
-      set(ref(firebase.db, 'users/userData/' + id.toString() + '/watchlist'), {
-        movieId: movieId.toString
-      });
+  const addToWatchList = () => {
+    if(firebase.db != null){
+      const db = getDatabase();
+      var reference = ref(firebase.db, 'users/userData/' + state.id + '/watchlist');
+      const childRef = push(reference);
+      set(childRef, {movieId});
     }
     else{
       Alert.alert("Database connection error");
-    }*/
+    }
   }
 
 
