@@ -37,10 +37,10 @@ const Movie = (props) => {
 
   const addToFavorites = () => {
     if(firebase.db != null){
-      const db = getDatabase();
-      var reference = ref(firebase.db, 'users/userData/' + state.id + '/favorites');
-      const childRef = push(reference);
-      set(childRef, {movieId});
+      var reference = ref(firebase.db, 'users/userData/' + state.email.replace("." , "--DOT--") + '/favorites/' + movieId);
+      set(reference, {
+        title: movieState.title,
+      });
     }
     else{
       Alert.alert("Database connection error");
@@ -49,14 +49,22 @@ const Movie = (props) => {
 
   const addToWatchList = () => {
     if(firebase.db != null){
-      const db = getDatabase();
-      var reference = ref(firebase.db, 'users/userData/' + state.id + '/watchlist');
-      const childRef = push(reference);
-      set(childRef, {movieId});
+      var reference = ref(firebase.db, 'users/userData/' + state.email.replace("." , "--DOT--") + '/watchlist/' + movieId);
+      set(reference, {
+        title: movieState.title,
+      });
     }
     else{
       Alert.alert("Database connection error");
     }
+    //Wenn man den Key braucht muss man folgendes machen.
+    /*get(child(ref(firebase.db), 'users/userData/' + state.email.replace(".", "--DOT--") + '/watchlist/' + movieId))
+    .then((snapshot) => {
+      if(snapshot.exists()){          
+        Alert.alert(snapshot.key.toString());
+      }
+    })
+    */
   }
 
 

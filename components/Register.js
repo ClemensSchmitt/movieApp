@@ -1,10 +1,8 @@
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { get, set } from "firebase/database";
 import React, {useState} from "react";
 import { StyleSheet, Text, View, Alert, TextInput, Pressable} from 'react-native';
 import firebase from "../firebase";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-import { getDatabase, ref, child, onValue} from "firebase/database";
+import { getDatabase, ref, child, onValue, get, set, push, key} from "firebase/database";
 import state from "./Session";
 import {proxy, useSnapshot} from "valtio";
 
@@ -19,7 +17,7 @@ const Register = ({navigation}) => {
       email: "",
       password: "",
       repeatPassword: "",
-      id: "1",
+      id: "default",
     });
 
 
@@ -27,10 +25,11 @@ const Register = ({navigation}) => {
       setLocalState({...localState, [name]: value})
     };
 
+
     const writeUserData = () => {
       if(firebase.db != null){
-        set(ref(firebase.db, 'users/userData/' + localState.id), {
-          email: localState.email,
+        var reference = ref(firebase.db, 'users/userData/' + localState.email.replace(".", "--DOT--"));
+        set(reference, {
           password: localState.password,
         });
       }
@@ -39,45 +38,20 @@ const Register = ({navigation}) => {
       }
     }
 
-    //Returns the id of the new user
-    const getNewId = () => {
-      get(child(ref(firebase.db), 'users/userData'))
-        .then((snapshot) => {
-          if(snapshot.exists()){
-            var id = 1;
-            var data = snapshot.val();
-            for(var entry in data){
-              ++id;
-            }
-            setLocalState({...localState, ["id"]: id.toString()});
-          }
-          else{
-            var id = 1;
-            setLocalState({...localState, ["id"]: id.toString()});
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-
     function isEmailUnique() {
-      getNewId();
-      get(child(ref(firebase.db), 'users/userData/'))
+      get(child(ref(firebase.db), 'users/userData/' + localState.email.replace(".", "--DOT--")))
       .then((snapshot) => {
         if(snapshot.exists()){
-          //Alert.alert(snapshot.child('3').child('email').val().toString());
-          for(var i = 0; i < parseInt(localState.id); i++){
-            if(snapshot.child(i.toString()).child('email').exists() && snapshot.child(i.toString()).child('email').val().toString() === localState.email){
-              Alert.alert("Email already used");
-              return false;
-            }
+          if(snapshot.val() != null){
+            Alert.alert("Email is already used");
+            return false;
           }
           writeUserData();
-          state.id = localState.id;
+          state.email = localState.email;
           navigation.navigate("Dashboard");
         }else{
           writeUserData();
+          state.email = localState.email;
           navigation.navigate("Dashboard");
         }
       })
@@ -88,7 +62,6 @@ const Register = ({navigation}) => {
 
 
     const register = () => {
-      getNewId();
 
       if(localState.email == ''){
         Alert.alert("Please enter an email");
@@ -107,6 +80,9 @@ const Register = ({navigation}) => {
       }
       else if(localState.password.length < 8){
         Alert.alert("The password must contain minimal 8 characters")
+      }
+      else if(localState.email.includes("#") || localState.email.includes("$") || localState.email.includes("[") || localState.email.includes("]")){
+        Alert.alert("#, $, [, ] Are not allowed in Emails");
       }
       else if(localState.password != localState.repeatPassword){
         Alert.alert("Password and repeated password must be equal");
