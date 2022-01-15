@@ -42,10 +42,10 @@ const UserSearch = (props) => {
     return(
        
         <View style={styles.container}>
-            <View style={styles.container}>
+            
                 <SearchBarComponent navigation={props.navigation}></SearchBarComponent>
 
-            </View>
+            
             <View style={styles.headerBar}>
                 <Text style={styles.headerText}>
                     Search Resuls for 
@@ -121,15 +121,17 @@ const styles = StyleSheet.create({
         textShadowRadius: 10,
     },
     contentMoviesContainer:{
-      justifyContent: 'flex-start',
+        flexWrap: "wrap",
 
-      flexDirection: 'column'
-      
+        //justifyContent: 'flex-start',
+  
+        flexDirection: 'row',
+        justifyContent: 'space-around',
     },
     moviesContainer:{
      
 
-  	  flexDirection: 'column'
+  	  //flexDirection: 'column'
 
     },
 

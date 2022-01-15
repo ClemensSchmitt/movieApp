@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Pressable, Image, Alert } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image, Alert, ImageBackground } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {proxy, useSnapshot} from "valtio";
 import state from "./Session";
@@ -12,65 +12,149 @@ const Dashboard = ({navigation}) => {
   //This is how to use the global Session
   const snap = useSnapshot(state);  
   const [searchTitle, setSearchTitle] = useState("");
+  const image = {uri: "https://image.tmdb.org/t/p/w1280/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg"}
 
   return (
     <View style={styles.container}>
+      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+        <View style={styles.backgroundShader} >
+
+          <View style={styles.spacer}></View>
+          <View style={styles.spacer}></View>
 
 
-      
-      <SearchBarComponent navigation={navigation}></SearchBarComponent>
+          <View style={styles.searchbar}>
+              <TextInput style={styles.searchInput} placeholder="Search..." placeholderTextColor={'gray'} TextColor={'white'} onChangeText={
+
+                (value)=> {
+                    setSearchTitle({...searchTitle,["title"]:value});
+
+              }
+                  //(value)=>{setSearchTitle(value)}
+                }>
+              </TextInput>
+
+              <Pressable  
+              onPress={
+              //()=> Alert.alert( (navigation == null).toString() )
+              ()=> navigation.navigate("UserSearch", {searchTitle: searchTitle.title})
+              }
+              title='UserSearch' 
+              style={styles.pressableSearch}
+              
+              >
+
+                <Image source={require('../assets/search.png')} style={styles.searchIcon}/>
+
+              </Pressable>
+          </View>
 
 
 
-      <View style={styles.buttonContainer}>
-          <Pressable onPress = {() => navigation.navigate("MustWatchList")} title='MustWatchList' style={styles.buttonStyle}>
-          <Text style={styles.buttonTextStyle}>Must Watch List</Text>
-          </Pressable>
-          <Pressable onPress = {() => navigation.navigate("Top20")} title='Top20' style={styles.buttonStyle}>
-          <Text style={styles.buttonTextStyle}>Top 20</Text>
-          </Pressable>
-      </View>
-      <View style={styles.buttonContainer}>
-          <Pressable onPress = {() => navigation.navigate("Profile")} title='Profile' style={styles.buttonStyle}>
-          <Text style={styles.buttonTextStyle}>Profile</Text>
-          </Pressable>
-          <Pressable onPress = {() => navigation.navigate("Popular")} title='Popular' style={styles.buttonStyle}>
-          <Text style={styles.buttonTextStyle}>Popular</Text>
-          </Pressable>
-      
-      
-      </View>
-      <View style={styles.movies}>
-      <Pressable onPress = {() => navigation.navigate("Popular")} title='Popular' style={styles.recommendTextBoxStyle}>
-        <Text style={styles.buttonTextStyle}>Popular</Text>
-      </Pressable> 
-      <View>
-      </View>
-      </View>
-      <View style={styles.movies}>
-      <Pressable onPress = {() => navigation.navigate("Recommended")} title='Recommended' style={styles.recommendTextBoxStyle}>
-        <Text style={styles.buttonTextStyle}>Recommended</Text>
-      </Pressable> 
-      <View>
+          <View style={styles.spacer}></View>
 
-      </View>
-      </View>
-      
+          <View style={styles.buttonContainerWrapper} >
+
+              <View style={styles.buttonContainer}>
+                  <Pressable onPress = {() => navigation.navigate("Popular")} title='Popular' style={styles.buttonStyle}>
+                  <Text style={styles.buttonTextStyle}>Popular</Text>
+                  </Pressable>
+                  <Pressable onPress = {() => navigation.navigate("Top20")} title='Top20' style={styles.buttonStyle}>
+                  <Text style={styles.buttonTextStyle}>Top 20</Text>
+                  </Pressable>
+              </View>
+              <View style={styles.buttonContainer}>
+                  <Pressable onPress = {() => navigation.navigate("Profile")} title='Profile' style={styles.buttonStyle}>
+                  <Text style={styles.buttonTextStyle}>My Profile</Text>
+                  </Pressable>
+              </View>
+          </View>
+          <View style={styles.spacer}></View>
+          <View style={styles.spacer}></View>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
 const styles = StyleSheet.create({
+  
   container: {
     flex: 1,
     backgroundColor: '#fff',
+   
+    
   },
-  buttonContainer: {
-    top: 10,
+  image: {
+    
+    //backgroundColor: 'rgba(0,0,0,0.5)',
+    
     flex: 1,
+    //justifyContent: "center"
+  },
+  backgroundShader:{
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    flex: 1,
+    justifyContent: "center"
+  },
+  searchbar: {
+    borderRadius: 8,
+    backgroundColor: '#6200EA',
+    height: 90,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 10,
+  }, 
+  searchInput: {
+    flex: 8,
+    paddingLeft:15,
+    marginLeft: 10,
+    color: 'white' ,
+    
+    height: 50,
+    backgroundColor: '#4527A0',
+    borderRadius: 8,
+    fontSize: 20,
+  },
+  pressableSearch:{
+    flex: 1,
+    maxWidth: 35,
+    maxHeight: 35,
+    marginRight: 10,
+    
+    marginLeft: 10,
+
+  },
+  searchIcon:{
+    maxWidth: '90%',
+    maxHeight: '90%',
+    alignSelf: 'center',
+  },
+  spacer: {
+      flex:1,
+  },
+  buttonContainerWrapper:{
+
+     borderRadius: 8,
+     
+      minHeight: 60,
+      flex:1,
+      padding: 20,
+      //marginVertical: 20,
+      backgroundColor: "#4527A0",
+      justifyContent: 'center',
+
+      
+  },
+  
+  buttonContainer: {
+    
+    //top: 10,
+    //flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingVertical: 10, 
-    maxHeight: 80,
+    marginVertical: 10, 
+    //maxHeight: 80,
     justifyContent: 'space-around',
   },
 
@@ -96,23 +180,8 @@ const styles = StyleSheet.create({
     textShadowColor: '#000000',
     textShadowRadius: 10,
   },
-  movies: {
-    height: 180,
-    width: 300,
-    backgroundColor: '#6200EA',
-    alignSelf: 'center',
-    top: 20,
-    borderRadius: 8,
-    marginTop: 10,
-  },
-  recommendTextStyle: {
-    justifyContent:'center',
-  },
-  recommendTextBoxStyle: {
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    height: 20,
-  },
+ 
+ 
  
 });
 

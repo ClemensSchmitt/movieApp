@@ -70,63 +70,56 @@ const Movie = (props) => {
 
   return (
     <View style={styles.container}>
+
         <SearchBarComponent navigation={props.navigation}></SearchBarComponent>
 
-
-
-        
-
-        
-            <View style={styles.headerBar}>
-                <Text style={styles.headerText}>
-                  {movieState.title}
-                </Text>
-                <View style={styles.buttonContainer}> 
-                  <Pressable onPress = {() => addToWatchList()}>
-                  <Image source={require('../assets/plus_unchecked.png')} style={styles.icon}/>
-                  </Pressable>
-                  <Pressable onPress = {() => addToFavorites()}>
-                  <Image source={require('../assets/favorite_unchecked.png')} style={styles.icon}/>
-                  </Pressable>    
-                </View>
+        <View style={styles.headerBar}>
+            <Text style={styles.headerText}>
+                {movieState.title}
+            </Text>
+            <View style={styles.buttonContainer}> 
+                <Pressable onPress = {() => addToWatchList()}>
+                <Image source={require('../assets/plus_unchecked.png')} style={styles.icon}/>
+                </Pressable>
+                <Pressable onPress = {() => addToFavorites()}>
+                <Image source={require('../assets/favorite_unchecked.png')} style={styles.icon}/>
+                </Pressable>    
             </View>
+        </View>
+
         <ScrollView contentContainerStyle={styles.contentMovieContainer} style={styles.contentMovie}>
             <View style= {styles.imageContainer}>
                 <Image source={{uri: IMAGE_API + movieState.posterPath}} style={{
                     width: '100%',
                     height: '100%',
                     resizeMode: 'cover',
+                    borderRadius: 8,
                 }}/>
             </View>
             
-            <View>
-                <Text>
-                   {movieState.description}
+            <View style= {styles.descriptionContainer} >
+
+                <Text style= {styles.descriptionTitle} >
+                   Description:
                 </Text>
+
+                <Text style= {styles.description} >
+                   {movieState.description}
+                   
+                </Text>
+                
             </View>
-          
-          
+            <View style={styles.spacer}>
 
-            <Text>
-              {movieState.description}
-            </Text>
+            </View>
         </ScrollView>
-
-
-
-
-
-
-
-
-
     </View>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
-    flex: 1,
+
     backgroundColor: '#fff',
   },
   headerBar:{
@@ -143,6 +136,7 @@ headerText:{
     textAlignVertical: 'center',
     color: '#fff',
     fontSize: 30,
+    maxWidth:'75%',
     
     textShadowColor: '#000000',
     textShadowRadius: 10,
@@ -150,7 +144,7 @@ headerText:{
 buttonContainer:{
   flexDirection: "row",
   alignItems: "center",
- 
+  alignSelf: "center",
   maxHeight: 35,
 
 },
@@ -161,15 +155,14 @@ icon:{
 },
 
 contentMovieContainer:{
+  
+  
 
-  height:'100%',
-  
-
-  
-  
 },
 contentMovie:{
   marginHorizontal: '2%',
+ 
+
  
 
 
@@ -177,10 +170,37 @@ contentMovie:{
 },
 
 imageContainer:{
+  borderRadius: 8,
 
-  height: '80%',
+  height: 550,
 
 },
+descriptionTitle:{
+  fontSize: 25,
+  marginVertical:5,
+  marginHorizontal: 10,
+  color: "#fff",
+
+
+},
+description:{
+  //marginTop:5,
+  marginBottom:10,
+  marginHorizontal: 10,
+  textAlign: "justify",
+  color: "#fff",
+
+},
+descriptionContainer:{
+  backgroundColor: "#000",
+  borderRadius: 8,
+  marginTop:10,
+  
+},
+spacer:{
+  height: 200,
+
+}
 
 
 

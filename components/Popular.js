@@ -82,15 +82,20 @@ const styles = StyleSheet.create({
       textShadowRadius: 10,
   },
     contentMoviesContainer:{
-      justifyContent: 'flex-start',
+        flexWrap: "wrap",
 
-      flexDirection: 'column'
+      //justifyContent: 'flex-start',
+
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      
       
     },
     moviesContainer:{
+        
      
 
-  	  flexDirection: 'column'
+  	  //flexDirection: 'column'
 
     },
 

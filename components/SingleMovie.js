@@ -30,15 +30,16 @@ const SingleMovie = (props) => {
 const styles = StyleSheet.create({
    
     movie:{
-        backgroundColor: '#6200EA',
-        width: '46%',
+        //backgroundColor: '#6200EA',
+        width: 185,
         height: 330,
         borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-        alignSelf: 'stretch',
-        margin: '2%',
-        flexDirection: "column",
+        //alignItems: 'center',
+        
+        //justifyContent: 'space-around',
+        //alignSelf: 'stretch',
+        marginVertical: 10,
+        //flexDirection: "column",
 
     },
     movieTextStyle:{
