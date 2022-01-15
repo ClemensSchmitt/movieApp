@@ -54,7 +54,6 @@ const Favorites = ({navigation}) => {
         })
         .then((arr) => {
           setMovies(arr)
-          //Alert.alert(movies.length.toString());
           setTimeout(() => {
                setShowComponent(true);       
           }, 30)
@@ -77,7 +76,7 @@ const Favorites = ({navigation}) => {
             {showComponent && movies.map((movie)=> {
                         return( 
                             <Pressable onPress={() => {navigation.navigate("Movie", {movieId: movie.id})}}>
-                                <SingleMovie poster_path = {movie.poster_path} title = {movie.title}/>
+                                <SingleMovie poster_path = {movie.posterPath} title = {movie.title}/>
                             </Pressable>
                         ); })              
             }

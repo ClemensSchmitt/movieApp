@@ -33,7 +33,9 @@ const Profile = ({navigation}) => {
             </View>
 
             <View style={styles.buttonContainer}>
+                <Pressable   Pressable onPress = {() => navigation.navigate("Impressum")} title='Impressum' style={styles.buttonStyle}>
                 <Text style={styles.headerTextStyle}>Logout Button</Text>
+                </Pressable>
             </View>
 
             <View style={styles.spacer}>
