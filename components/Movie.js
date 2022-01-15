@@ -39,7 +39,7 @@ const Movie = (props) => {
     if(firebase.db != null){
       var reference = ref(firebase.db, 'users/userData/' + state.email.replace("." , "--DOT--") + '/favorites/' + movieId);
       set(reference, {
-        title: movieState.title,
+        title : movieState.title,
       });
     }
     else{
@@ -51,32 +51,18 @@ const Movie = (props) => {
     if(firebase.db != null){
       var reference = ref(firebase.db, 'users/userData/' + state.email.replace("." , "--DOT--") + '/watchlist/' + movieId);
       set(reference, {
-        title: movieState.title,
+        title : movieState.title,
       });
     }
     else{
       Alert.alert("Database connection error");
     }
-    //Wenn man den Key braucht muss man folgendes machen.
-    /*get(child(ref(firebase.db), 'users/userData/' + state.email.replace(".", "--DOT--") + '/watchlist/' + movieId))
-    .then((snapshot) => {
-      if(snapshot.exists()){          
-        Alert.alert(snapshot.key.toString());
-      }
-    })
-    */
   }
 
 
   return (
     <View style={styles.container}>
         <SearchBarComponent navigation={props.navigation}></SearchBarComponent>
-
-
-
-        
-
-        
             <View style={styles.headerBar}>
                 <Text style={styles.headerText}>
                   {movieState.title}

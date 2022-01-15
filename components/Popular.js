@@ -19,8 +19,6 @@ const Popular = ({navigation}) => {
             .then((data)=> {
                 setMovies(data.results);
             })
-
-
             .catch((error) => {
                 console.error(error);
             })

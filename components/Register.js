@@ -1,10 +1,11 @@
 import React, {useState} from "react";
 import { StyleSheet, Text, View, Alert, TextInput, Pressable} from 'react-native';
+import { getFirestore, collection, getDocs, snapshotEqual } from 'firebase/firestore/lite';
+import { getDatabase, ref, child, onValue, push, get, set} from "firebase/database";
 import firebase from "../firebase";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-import { getDatabase, ref, child, onValue, get, set, push, key} from "firebase/database";
 import state from "./Session";
 import {proxy, useSnapshot} from "valtio";
+import Favorites from "./Favorites";
 
 
 
