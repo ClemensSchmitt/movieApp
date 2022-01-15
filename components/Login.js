@@ -60,27 +60,21 @@ const Login = ({navigation}) => {
 
     //requestedDBState.email wird noch nicht richtig gesetzt
     function isUserRegistered() {
-      get(child(ref(firebase.db), 'users/userData/'))
+      get(child(ref(firebase.db), 'users/userData/' + localState.email.replace(".", "--DOT--")))
       .then((snapshot) => {
         if(snapshot.exists()){          
-          for(var i = 1; i < localState.id; i++){
-            if(localState.email === snapshot.child(i.toString()).child("email").val().toString() && localState.password === snapshot.child(i.toString()).child("password").val().toString()){
-              state.id = i;
-              navigation.navigate("Dashboard");
-              return;
-            }
+          if(snapshot.val() != null && snapshot.val().password === localState.password){
+            state.email = localState.email;
+            navigation.navigate("Dashboard");
           }
         }
         else{
-          Alert.alert("Can't reach firebase db");
+          Alert.alert("Wrong username or password!");
         }
       })
       .catch((error) => {
         console.error(error);
       });
-      setTimeout(() => {
-        setLoginMassage("Wrong username or password!");
-      }, 1500);
     }
 
     return (
