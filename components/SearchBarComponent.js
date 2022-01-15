@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   searchIcon:{
     maxWidth: '90%',
     maxHeight: '90%',
+    alignSelf: 'center',
   }
 });
 

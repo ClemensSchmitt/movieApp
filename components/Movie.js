@@ -82,35 +82,55 @@ const Movie = (props) => {
   return (
     <View style={styles.container}>
         <SearchBarComponent navigation={props.navigation}></SearchBarComponent>
-        <View style={styles.content}>
-          <Text style={styles.title}>
-            {movieState.title}
-          </Text>
-          <View>
-            <Pressable onPress = {() => addToWatchList()}>
-            <Text>Add Watchlist</Text> 
-            </Pressable>
-            <Pressable onPress = {() => addToFavorites()}>
-            <Text>Favorites</Text>
-            </Pressable>    
-          </View>
-          <View>
-          <Text>
-            {movieState.description}
-          </Text>
-          </View>
-          <View>
-          </View>
-          <Image source={{uri: IMAGE_API + movieState.posterPath}} style={{
-                width: '100%',
-                height: '80%',
-                resizeMode: 'contain',
-          }}/>
 
-          <Text>
-            {movieState.description}
-          </Text>
-        </View>
+
+
+        
+
+        
+            <View style={styles.headerBar}>
+                <Text style={styles.headerText}>
+                  {movieState.title}
+                </Text>
+                <View style={styles.buttonContainer}> 
+                  <Pressable onPress = {() => addToWatchList()}>
+                  <Image source={require('../assets/plus_unchecked.png')} style={styles.icon}/>
+                  </Pressable>
+                  <Pressable onPress = {() => addToFavorites()}>
+                  <Image source={require('../assets/favorite_unchecked.png')} style={styles.icon}/>
+                  </Pressable>    
+                </View>
+            </View>
+        <ScrollView contentContainerStyle={styles.contentMovieContainer} style={styles.contentMovie}>
+            <View style= {styles.imageContainer}>
+                <Image source={{uri: IMAGE_API + movieState.posterPath}} style={{
+                    width: '100%',
+                    height: '100%',
+                    resizeMode: 'cover',
+                }}/>
+            </View>
+            
+            <View>
+                <Text>
+                   {movieState.description}
+                </Text>
+            </View>
+          
+          
+
+            <Text>
+              {movieState.description}
+            </Text>
+        </ScrollView>
+
+
+
+
+
+
+
+
+
     </View>
   )
 }
@@ -120,6 +140,61 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  headerBar:{
+    padding: '1%',
+    margin: '2%',
+    backgroundColor: '#6200EA',
+    borderRadius: 8,
+    opacity: 50,
+    flexDirection: "row",
+    justifyContent: "space-between",
+},
+headerText:{
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    color: '#fff',
+    fontSize: 30,
+    
+    textShadowColor: '#000000',
+    textShadowRadius: 10,
+},
+buttonContainer:{
+  flexDirection: "row",
+  alignItems: "center",
+ 
+  maxHeight: 35,
+
+},
+icon:{
+  maxWidth: 25,
+  maxHeight: 25,
+  marginHorizontal: 5,
+},
+
+contentMovieContainer:{
+
+  height:'100%',
+  
+
+  
+  
+},
+contentMovie:{
+  marginHorizontal: '2%',
+ 
+
+
+
+},
+
+imageContainer:{
+
+  height: '80%',
+
+},
+
+
+
  
 }
 );

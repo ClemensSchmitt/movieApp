@@ -38,10 +38,10 @@ const Top20 = ({navigation}) => {
     return(
        
         <View style={styles.container}>
-            <View style={styles.container}>
+            
                 <SearchBarComponent navigation={navigation}></SearchBarComponent>
 
-            </View>
+            
             <View style={styles.headerBar}>
                 <Text style={styles.headerText}>
                     Top 20 by User Rating

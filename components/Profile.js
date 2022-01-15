@@ -9,10 +9,10 @@ const Profile = ({navigation}) => {
             
             <SearchBarComponent navigation={navigation}></SearchBarComponent>
 
-            <View style={styles.header}>
-
-                <Text style={styles.headerTextStyle}>Profile</Text>
-
+            <View style={styles.headerBar}>
+                <Text style={styles.headerText}>
+                    Profile
+                </Text>
             </View>
 
 
@@ -58,25 +58,33 @@ const Profile = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
         flexDirection: "column",
     },
-    header: {
-        flex: 1,
-    },
+    headerBar:{
+        padding: '1%',
+        margin: '2%',
+        backgroundColor: '#6200EA',
+        borderRadius: 8,
+        opacity: 50,
 
-    headerTextStyle: {
+
+    },
+    headerText:{
         textAlign: 'center',
         textAlignVertical: 'center',
-        color: '#FFF',
-        top: 15,
+        color: '#fff',
+        fontSize: 30,
+        
         textShadowColor: '#000000',
         textShadowRadius: 10,
-        flex: 1,
     },
 
     spacer:{
         flex:1,
+    },
+
+    buttonContainer:{
+        padding: 20,
     },
 
     buttonStyle: {
