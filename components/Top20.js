@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView,} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
 import SearchBarComponent from "./SearchBarComponent";
 
 
@@ -47,17 +47,17 @@ const Top20 = ({navigation}) => {
                     Top 20 by User Rating
                 </Text>
             </View>
-
             <ScrollView contentContainerStyle={styles.contentMoviesContainer} style={styles.moviesContainer} >
 
                 {
                     movies.map((movie)=> {
                         return( 
-                            <SingleMovie poster_path = {movie.poster_path} title = {movie.title}></SingleMovie>
+                            <Pressable onPress={() => {navigation.navigate("Movie", {movieId: movie.id})}}>
+                                <SingleMovie poster_path = {movie.poster_path} title = {movie.title}/>
+                            </Pressable>
                         );
                     })
                 }
-
 
             </ScrollView>
 
