@@ -28,7 +28,7 @@ const Movie = (props) => {
     fetch(dataPath)
     .then((res) => res.json())
     .then((data)=> {
-      setMovieState({...movieState, ["title"]: data.original_title, ["posterPath"]: data.poster_path, ["description"]: data.overview});
+      setMovieState({...movieState, ["title"]: data.title, ["posterPath"]: data.poster_path, ["description"]: data.overview});
     })
     .catch((error) => {
         console.error(error);
