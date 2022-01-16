@@ -1,10 +1,8 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable} from 'react-native';
+import { StyleSheet, Text, View, Pressable} from 'react-native';
 import SearchBarComponent from "./SearchBarComponent";
 
 const Profile = ({navigation}) => {
-
-    
 
     return (
         <View style={styles.container}>

@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View, Pressable, Image, Alert, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Pressable, Image, ImageBackground, Vibration} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {proxy, useSnapshot} from "valtio";
 import state from "./Session";
-import {React, useState} from 'react';
-import SearchBarComponent from "./SearchBarComponent";
+import {React, useState, useEffect} from 'react';
+
 
 
 
@@ -16,6 +16,8 @@ const Dashboard = ({navigation}) => {
   });
   const image = {uri: "https://image.tmdb.org/t/p/w1280/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg"}
 
+
+  //Searching for movies if the search icon is pressed and the text input is not empty
   const searchWithInput = () => {
 
     if(searchTitle.title != "" && searchTitle.title != " "){
@@ -23,6 +25,11 @@ const Dashboard = ({navigation}) => {
     }
 
   }
+
+  //Vibrates on load
+  useEffect(() => {
+    Vibration.vibrate(500);
+  },[])
 
   return (
     <View style={styles.container}>

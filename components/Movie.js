@@ -1,12 +1,10 @@
 import {React, useState, useEffect} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
-import { getFirestore, collection, getDocs, snapshotEqual } from 'firebase/firestore/lite';
-import { getDatabase, ref, child, onValue, push} from "firebase/database";
+import {StyleSheet, Text, View, Alert, Image, ScrollView, Pressable} from 'react-native';
+import { ref, child} from "firebase/database";
 import { get, set , remove} from "firebase/database";
 import firebase from "../firebase";
 import state from "./Session";
 import {proxy, useSnapshot} from "valtio";
-import Favorites from "./Favorites";
 import SearchBarComponent from "./SearchBarComponent";
 
 const IMAGE_API = "https://image.tmdb.org/t/p/w1280";
@@ -14,30 +12,36 @@ const IMAGE_API = "https://image.tmdb.org/t/p/w1280";
 const FEATURED_API = "https://api.themoviedb.org/3/movie/XXXXXXX?api_key=debe76e8c00bc3a787ba451864f37299";
 
 const Movie = (props) => {
-
+  //Stores movie id of current movie
   const movieId = props.route.params.movieId;
 
+  //States for checked or unchecked icons
   const [favorite, setFavorite] = useState(false);
   const [mustWatch, setMustWatch] = useState(false);
 
+  //MovieState stores the required data to visualize movies
   const [movieState, setMovieState] = useState({
     title: "",
     posterPath: "",
     description: "",
   });
 
+  //Requests required data on load
   useEffect(() => {
     var dataPath = FEATURED_API.replace("XXXXXXX", movieId.toString());
+
+    //Fetch request for theMovieAPI to get title, poster path and description of current movie
     fetch(dataPath)
     .then((res) => res.json())
     .then((data)=> {
+      //Stores data in movieState
       setMovieState({...movieState, ["title"]: data.title, ["posterPath"]: data.poster_path, ["description"]: data.overview});
     })
     .catch((error) => {
         console.error(error);
     })
-
-    
+    //Checks if the current movie is a favorite
+    //Searches in firebase db for movie id and if the entry is not null the movie is an favorite and the icon is checked
     get(child(ref(firebase.db), 'users/userData/' + state.email.replace(".", "--DOT--") + '/favorites/' + movieId.toString()))
     .then((snapshot) => {
       setTimeout(() => {
@@ -48,7 +52,8 @@ const Movie = (props) => {
       }
       }, 20);
     })
-
+    //Checks if the current movie is an must watch movie
+    //Searches in firebase db for movie id and if the entry is not null the movie is an must watch movie and the icon is checked
     get(child(ref(firebase.db), 'users/userData/' + state.email.replace(".", "--DOT--") + '/watchlist/' + movieId.toString()))
     .then((snapshot) => {
       setTimeout(() => {
@@ -61,6 +66,9 @@ const Movie = (props) => {
     })
   }, []);
 
+  //Checks if the icon is checked or not by using the favorite state
+  //Changes state to show the opposite icon
+  //Adds and removes movies from must watch
   const handleFavorites = () => {
 
     setFavorite(favorite ? false : true);
@@ -87,6 +95,9 @@ const Movie = (props) => {
     }
   }
 
+//Checks if the icon is checked or not by using the must watch state
+//Changes state to show the opposite icon
+//Adds and removes movies from must watch
   const handleWatchList = () => {
 
     setMustWatch(mustWatch ? false : true);

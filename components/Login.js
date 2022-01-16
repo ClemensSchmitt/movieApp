@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable,Image} from 'react-native';
-import { getFirestore, collection, getDocs, snapshotEqual } from 'firebase/firestore/lite';
-import { getDatabase, ref, child, onValue} from "firebase/database";
+import {ref, child} from "firebase/database";
 import { get, set } from "firebase/database";
 import firebase from "../firebase";
 import state from "./Session";
@@ -11,20 +10,22 @@ const Login = ({navigation}) => {
 
     const snap = useSnapshot(state);
 
+    //State for storing login data
     const [localState, setLocalState] = useState({
       email: "",
       password: "",
       id: "",
     });
 
+    //Sets the localState if text input changes
     const textChange = (name, value) => {
       setLocalState({...localState, [name]: value});
     };
 
     const [loginMassage, setLoginMassage] = useState("");
 
+    //Checks requirements of email address and stats check of user data 
     const login = () => {
-      getNewId();
       if(localState.email == ''){
         Alert.alert("Please enter an email");
       }
@@ -33,33 +34,13 @@ const Login = ({navigation}) => {
       }
       else{
         isUserRegistered(); 
-        
       }
     }
 
-    const getNewId = () => {
-      get(child(ref(firebase.db), 'users/userData'))
-        .then((snapshot) => {
-          if(snapshot.exists()){
-            var id = 1;
-            var data = snapshot.val();
-            for(var entry in data){
-              ++id;
-            }
-            setLocalState({...localState, ["id"]: id.toString()});
-          }
-          else{
-            var id = 1;
-            setLocalState({...localState, ["id"]: id.toString()});
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-
-    //requestedDBState.email wird noch nicht richtig gesetzt
+    //Compares data of user with user data on firebase db
     function isUserRegistered() {
+      //Checks if email exists in db
+      //If email exists and password is correct the emails is stored in state.email to use the current users email later
       get(child(ref(firebase.db), 'users/userData/' + localState.email.replace(".", "--DOT--")))
       .then((snapshot) => {
         if(snapshot.exists()){          
@@ -82,9 +63,7 @@ const Login = ({navigation}) => {
 
             <View style={styles.logoPictureContainer}>
 
-            <Image source={require('../assets/search.png')} style={styles.logoPicture}/>
-
-
+            <Image source={require('../assets/Logo.png')} style={styles.logoPicture}/>
 
             </View>
 
@@ -163,7 +142,6 @@ const styles = StyleSheet.create({
     }, 
 
     userPassword:{
-        //flex:1,
         backgroundColor:'#6200EA',
         borderRadius: 8,
         padding: 10,

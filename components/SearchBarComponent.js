@@ -1,19 +1,17 @@
 import { StyleSheet, Text, View, Pressable, Image, Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {proxy, useSnapshot} from "valtio";
-import state from "./Session";
 import {React, useState} from 'react';
-import UserSearch from './UserSearch';
-import { endAt } from 'firebase/firestore/lite';
-import MyStack from '../App.js';
 
 
 const SearchBarComponent = ({navigation}) => {
 
+  //Stores input
   const [searchTitle, setSearchTitle] = useState({
     title: "",
   });
 
+  //If searchicon is pressed this function checks if the input can be used for a request
   const searchWithInput = () => {
 
     if(searchTitle.title != "" && searchTitle.title != " "){

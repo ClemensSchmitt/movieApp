@@ -1,18 +1,18 @@
 import {React, useState, useEffect} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Pressable} from 'react-native';
 import SearchBarComponent from "./SearchBarComponent";
 import SingleMovie from "./SingleMovie";
 
 const FEATURED_API = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=debe76e8c00bc3a787ba451864f37299&page=1";
 
-const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=debe76e8c00bc3a787ba451864f37299&query=";
-
-
 
 const Popular = ({navigation}) => {
 
+    //Stores movies in json
     const [movies, setMovies] = useState([]);
 
+
+    //Starts on load fetch requests for the top 20 movies
     useEffect(() => {
         fetch(FEATURED_API)
             .then((res) => res.json())
@@ -38,6 +38,7 @@ const Popular = ({navigation}) => {
             <ScrollView contentContainerStyle={styles.contentMoviesContainer} style={styles.moviesContainer} >
 
                 {
+                    //Creates a single movie component for each entry in movies
                     movies.map((movie)=> {
                         return( 
                             <Pressable onPress={() => {navigation.navigate("Movie", {movieId: movie.id})}}>

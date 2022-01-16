@@ -1,21 +1,24 @@
 import {React, useState, useEffect} from "react";
-import { StyleSheet,View, Text, TouchableOpacity, Alert, TextInput, Image, Dimensions} from "react-native";
+import { StyleSheet,View, Text, Image, Dimensions} from "react-native";
 
 const IMAGE_API = "https://image.tmdb.org/t/p/w1280";
 
 
-
+//Single movie component is used to visualize replies from theMovieAPI
 const SingleMovie = (props) => {
 
-    
+    //State stores dimensions of smartphone screen
     const [singleMovieDimensions, setSingleMovieDimensions] = useState({
         width: 150,
         height: 200,
     })
 
+    //Detect dimensions of smartphone screen
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
 
+    //Stores dimensions of smartphonescreen onload
+    //Important to visualize two movies in a row 
     useEffect(() => {
         setSingleMovieDimensions({...singleMovieDimensions, ["width"]: windowWidth/2-2, ["height"]: windowHeight/2-2});
     }, [])
@@ -50,6 +53,7 @@ const styles = StyleSheet.create({
         //justifyContent: 'space-around',
         //alignSelf: 'stretch',
         marginVertical: 10,
+        marginTop: 20,      
         //flexDirection: "column",
 
     },

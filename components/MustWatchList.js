@@ -1,12 +1,10 @@
 import {React, useState, useEffect} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
-import { getFirestore, collection, getDocs, snapshotEqual } from 'firebase/firestore/lite';
-import { getDatabase, ref, child, onValue, push} from "firebase/database";
-import { get, set } from "firebase/database";
+import {StyleSheet, Text, View, ScrollView, Pressable} from 'react-native';
+import {ref, child} from "firebase/database";
+import {get} from "firebase/database";
 import firebase from "../firebase";
 import state from "./Session";
 import {proxy, useSnapshot} from "valtio";
-import Favorites from "./Favorites";
 import SearchBarComponent from "./SearchBarComponent";
 import SingleMovie from "./SingleMovie";
 
@@ -14,6 +12,7 @@ const MOVIE_ID_API = "https://api.themoviedb.org/3/movie/--MOVIE_ID--?api_key=de
 
 const MustWatchList = ({navigation}) => {
 
+  //Class for data of movies to store in movies state
    class Movie {
       constructor(title, id, posterPath){
         this.title = title;
@@ -24,8 +23,9 @@ const MustWatchList = ({navigation}) => {
 
     const [movies, setMovies] = useState([]);
     const [showComponent, setShowComponent] = useState(false);
-
+    //loads data for movies from firebase and theMovieAPI 
     const loadMovieData = () => {
+      //Gets list of movie ids of user from firebase
       get(child(ref(firebase.db), 'users/userData/' + state.email.replace(".", "--DOT--") + '/watchlist'))
         .then((snapshot) => {
           if(snapshot.exists()){
@@ -37,6 +37,7 @@ const MustWatchList = ({navigation}) => {
             return ids;
           }
         })
+        //Sending fetch requests for each movie id and saves the replied title, id and poster path as movie object in the movies state
         .then((ids) => {
           var arr = [];
           ids.forEach(id => {
@@ -51,6 +52,7 @@ const MustWatchList = ({navigation}) => {
           });
           return arr;
         })
+        //Sets the singleMovie components visible after the previous request progress finished on visible
         .then((arr) => {
           setMovies(arr)
           //Alert.alert(movies.length.toString());
@@ -63,6 +65,7 @@ const MustWatchList = ({navigation}) => {
         });
     }
 
+    //Starts loading data for singleMovies
     useEffect(() => {
       setMovies([]);
       loadMovieData();
@@ -78,7 +81,11 @@ const MustWatchList = ({navigation}) => {
                 </Text>
             </View>
             <ScrollView contentContainerStyle={styles.contentMoviesContainer} style={styles.moviesContainer} >
-            {showComponent && movies.map((movie)=> {
+
+            {
+            //Sets visible if requests finished
+            //Creates a single movie component for each entry in movies
+              showComponent && movies.map((movie)=> {
                         return( 
                             <Pressable onPress={() => {navigation.navigate("Movie", {movieId: movie.id})}}>
                                 <SingleMovie poster_path = {movie.posterPath} title = {movie.title}/>

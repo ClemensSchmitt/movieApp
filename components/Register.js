@@ -1,19 +1,15 @@
 import React, {useState} from "react";
 import { StyleSheet, Text, View, Alert, TextInput, Pressable,Image} from 'react-native';
-import { getFirestore, collection, getDocs, snapshotEqual } from 'firebase/firestore/lite';
-import { getDatabase, ref, child, onValue, push, get, set} from "firebase/database";
+import { ref, child, get, set} from "firebase/database";
 import firebase from "../firebase";
 import state from "./Session";
 import {proxy, useSnapshot} from "valtio";
-import Favorites from "./Favorites";
-
-
 
 const Register = ({navigation}) => {
 
     const snap = useSnapshot(state);
 
-
+    //State for storing login data
     const [localState, setLocalState] = useState({
       email: "",
       password: "",
@@ -21,12 +17,12 @@ const Register = ({navigation}) => {
       id: "default",
     });
 
-
+    //Sets the localState if text input changes
     const textChange = (name, value) => {
       setLocalState({...localState, [name]: value})
     };
 
-
+    //Writes the new user data the firebase db if the check of login data was successful
     const writeUserData = () => {
       if(firebase.db != null){
         var reference = ref(firebase.db, 'users/userData/' + localState.email.replace(".", "--DOT--"));
@@ -39,19 +35,26 @@ const Register = ({navigation}) => {
       }
     }
 
+    //Checks if the email is already used
     function isEmailUnique() {
+      //Requests data for the used email
       get(child(ref(firebase.db), 'users/userData/' + localState.email.replace(".", "--DOT--")))
       .then((snapshot) => {
         if(snapshot.exists()){
+          //If the replied data is null the register progress continues
           if(snapshot.val() != null){
             Alert.alert("Email is already used");
             return false;
           }
+          //Writes data
           writeUserData();
+          //The emails is stored in state.email to use the current users email later
           state.email = localState.email;
           navigation.navigate("Dashboard");
         }else{
+          //Writes data
           writeUserData();
+          //The emails is stored in state.email to use the current users email later
           state.email = localState.email;
           navigation.navigate("Dashboard");
         }
@@ -61,7 +64,7 @@ const Register = ({navigation}) => {
       });
     }
 
-
+    //Checks requirements for a register
     const register = () => {
 
       if(localState.email == ''){
@@ -92,13 +95,13 @@ const Register = ({navigation}) => {
         isEmailUnique();
       }
     }
-
+    
     return (
         <View style={styles.container}>
 
             <View style={styles.logoPictureContainer}>
 
-            <Image source={require('../assets/search.png')} style={styles.logoPicture}/>
+            <Image source={require('../assets/Logo.png')} style={styles.logoPicture}/>
 
             </View>
 

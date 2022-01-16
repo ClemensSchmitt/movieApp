@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable} from 'react-native';
+import { StyleSheet, Text, View} from 'react-native';
 
 const Impressum = ({navigation}) => {
 

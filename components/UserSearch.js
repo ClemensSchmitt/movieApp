@@ -1,12 +1,8 @@
 import {React, useState, useEffect} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView,} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Pressable} from 'react-native';
 import SearchBarComponent from "./SearchBarComponent";
-
-
-
 import SingleMovie from "./SingleMovie";
 
-const FEATURED_API = "https://api.themoviedb.org/3/movie/top_rated?api_key=debe76e8c00bc3a787ba451864f37299&language=en-US&page=1";
 
 const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=debe76e8c00bc3a787ba451864f37299&query=";
 
@@ -14,24 +10,19 @@ const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=debe76e8c
 
 const UserSearch = (props) => {
 
-
-
-    
+    //Title for api request
     const searchTitle = props.route.params.searchTitle; 
+
+    //Stores movies as json
     const [movies, setMovies] = useState([]);
 
-
-
-    //Get MovieData from TMDB
-
+    //Request movie data from theMovieAPI on load and stores replied data to movies
     useEffect(() => {
         fetch(SEARCH_API + searchTitle.toString())
             .then((res) => res.json())
             .then((data)=> {
                 setMovies(data.results);
-                //Alert.alert((searchTitle).toString());
             })
-            
             .catch((error) => {
                 console.error(error);
             })
@@ -41,21 +32,23 @@ const UserSearch = (props) => {
        
         <View style={styles.container}>
             
-                <SearchBarComponent navigation={props.navigation}></SearchBarComponent>
+            <SearchBarComponent navigation={props.navigation}></SearchBarComponent>
 
-            
             <View style={styles.headerBar}>
                 <Text style={styles.headerText}>
-                    Search Resuls for 
+                    Search Resuls for {searchTitle}
                 </Text>
             </View>
 
-            <ScrollView contentContainerStyle={styles.contentMoviesContainer} style={styles.moviesContainer} >
+            <ScrollView contentContainerStyle={styles.contentMoviesContainer} style={styles.moviesContainer}>
 
                 {
+                    //Creates a single movie component for each entry in movies
                     movies.map((movie)=> {
                         return( 
-                            <SingleMovie poster_path = {movie.poster_path} title = {movie.title}></SingleMovie>
+                            <Pressable onPress={() => {props.navigation.navigate("Movie", {movieId: movie.id})}}>
+                                    <SingleMovie poster_path = {movie.poster_path} title = {movie.title}></SingleMovie>
+                            </Pressable>
                         );
                     })
                 }

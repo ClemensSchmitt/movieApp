@@ -1,5 +1,5 @@
 import {React, useState, useEffect} from "react";
-import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, Pressable} from 'react-native';
 import SearchBarComponent from "./SearchBarComponent";
 
 
@@ -13,27 +13,20 @@ const SEARCH_API = "https://api.themoviedb.org/3/search/movie?&api_key=debe76e8c
 
 const Top20 = ({navigation}) => {
 
-
-
-    
-
+    //Storage of movies as json
     const [movies, setMovies] = useState([]);
 
+    //Requests data from theMovieAPI on load an stores single movies in movies state
     useEffect(() => {
         fetch(FEATURED_API)
             .then((res) => res.json())
             .then((data)=> {
                 setMovies(data.results);
-                //Alert.alert((movies[0].title).toString());
             })
-
-
             .catch((error) => {
                 console.error(error);
             })
     },[]);
-
-    //setMovies([...movies, 1]);
 
     return(
        
@@ -50,6 +43,7 @@ const Top20 = ({navigation}) => {
             <ScrollView contentContainerStyle={styles.contentMoviesContainer} style={styles.moviesContainer} >
 
                 {
+                    //Creates a single movie component for each entry in movies
                     movies.map((movie)=> {
                         return( 
                             <Pressable onPress={() => {navigation.navigate("Movie", {movieId: movie.id})}}>

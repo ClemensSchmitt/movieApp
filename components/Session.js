@@ -1,7 +1,8 @@
-import React, {useState} from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Pressable, AsyncStorage} from 'react-native';
+import React from "react";
 import {proxy, useSnapshot} from "valtio";
 
+//Stores email after login
+//Required to build reference paths for requests for firebase
 const state = proxy({
     email: "default",
 });
