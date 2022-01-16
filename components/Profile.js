@@ -13,9 +13,10 @@ const Profile = ({navigation}) => {
 
             <View style={styles.headerBar}>
                 <Text style={styles.headerText}>
-                    Profile
+                   My Profile
                 </Text>
             </View>
+            <View style={styles.spacer}></View>
 
 
             <View style={styles.buttonContainer}>
@@ -35,20 +36,18 @@ const Profile = ({navigation}) => {
             </View>
 
             <View style={styles.buttonContainer}>
-                <Pressable   Pressable onPress = {() => navigation.navigate("Login")} title='Login' style={styles.buttonStyle}>
+                <Pressable   Pressable onPress = {() => navigation.navigate("Login")} title='Login' style={styles.logoutButtonStyle}>
                 <Text style={styles.buttonTextStyle}>Logout Button</Text>
                 </Pressable>
             </View>
 
-            <View style={styles.spacer}>
-                
-            </View>
+            
             <View style={styles.buttonContainer}>
                 <Pressable onPress = {() => navigation.navigate("Impressum")} title='Impressum' style={styles.buttonStyle}>
                 <Text style={styles.buttonTextStyle}>Impressum</Text>
                 </Pressable>
             </View>
-
+            <View style={styles.spacer}></View>
 
 
 
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
     headerBar:{
         padding: '1%',
         margin: '2%',
-        backgroundColor: '#6200EA',
+        backgroundColor: '#4527A0',
         borderRadius: 8,
         opacity: 50,
 
@@ -88,10 +87,26 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer:{
-        padding: 20,
+        //padding: 20,
     },
+    logoutButtonStyle: {
+        margin: '2%',
+        backgroundColor: "red",
+        height: 50,
+
+        borderRadius: 8,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 12,
+      },
 
     buttonStyle: {
+        margin: '2%',
         backgroundColor: '#6200EA',
         height: 50,
 

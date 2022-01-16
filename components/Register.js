@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { StyleSheet, Text, View, Alert, TextInput, Pressable} from 'react-native';
+import { StyleSheet, Text, View, Alert, TextInput, Pressable,Image} from 'react-native';
 import { getFirestore, collection, getDocs, snapshotEqual } from 'firebase/firestore/lite';
 import { getDatabase, ref, child, onValue, push, get, set} from "firebase/database";
 import firebase from "../firebase";
@@ -96,9 +96,13 @@ const Register = ({navigation}) => {
     return (
         <View style={styles.container}>
 
-            <View style={styles.logoPicture}>
+            <View style={styles.logoPictureContainer}>
+
+            <Image source={require('../assets/search.png')} style={styles.logoPicture}/>
 
             </View>
+
+            <Text style={styles.brandName}>FILMLIST</Text>
 
             <View style={styles.registerMask}>
                 <TextInput 
@@ -146,15 +150,28 @@ const styles = StyleSheet.create({
     padding: 20,
     flexDirection: "column",
     },
-    logoPicture:{
+    logoPictureContainer:{
     flex: 1,
     },
+    logoPicture:{
+      marginTop: 90,
+      flex:1,
+      alignSelf:'center',
+      resizeMode: 'contain',
+      height: 100,
+      width: 100,
+    },
+    brandName:{
+      fontSize: 50,
+      alignSelf:"center",
+  },
+    
     registerMask: {
     flex: 2,
     flexDirection: "column",
     },
     userEmail:{
-    flex:1,
+    //flex:1,
     backgroundColor:'#6200EA', 
     borderRadius: 8,
     padding: 10,
@@ -162,7 +179,7 @@ const styles = StyleSheet.create({
     color: "#fff"
     }, 
     userPassword:{
-    flex:1,
+    //flex:1,
     backgroundColor:'#6200EA',
     borderRadius: 8,
     padding: 10,
@@ -170,7 +187,7 @@ const styles = StyleSheet.create({
     color: "#fff"
     },
     userRepeatPassword:{
-    flex:1,
+    //flex:1,
     backgroundColor:'#6200EA',
     borderRadius: 8,
     padding: 10,
@@ -181,6 +198,7 @@ const styles = StyleSheet.create({
     flex:1,
     },
     buttonStyle: {
+        margin:5,
         backgroundColor: '#6200EA',
         height: 50,
 

@@ -111,18 +111,20 @@ const styles = StyleSheet.create({
       textShadowColor: '#000000',
       textShadowRadius: 10,
   },
-    contentMoviesContainer:{
-      justifyContent: 'flex-start',
+  contentMoviesContainer:{
+    flexWrap: "wrap",
 
-      flexDirection: 'column'
-      
-    },
+    //justifyContent: 'flex-start',
+
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
     moviesContainer:{
-     
+ 
 
-  	  flexDirection: 'column'
+  flexDirection: 'column'
 
-    }, 
+},
 });
 
 export default MustWatchList;
