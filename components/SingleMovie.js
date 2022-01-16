@@ -17,9 +17,8 @@ const SingleMovie = (props) => {
     const windowHeight = Dimensions.get('window').height;
 
     useEffect(() => {
-        setSingleMovieDimensions({...singleMovieDimensions, ["width"]: windowWidth/3, ["height"]: windowHeight/3});
+        setSingleMovieDimensions({...singleMovieDimensions, ["width"]: windowWidth/2-2, ["height"]: windowHeight/2-2});
     }, [])
-
 
     return(
         

@@ -2,7 +2,7 @@ import {React, useState, useEffect} from "react";
 import {StyleSheet, Text, View, TouchableOpacity, Alert, TextInput, Image, ScrollView, Pressable} from 'react-native';
 import { getFirestore, collection, getDocs, snapshotEqual } from 'firebase/firestore/lite';
 import { getDatabase, ref, child, onValue, push} from "firebase/database";
-import { get, set } from "firebase/database";
+import { get, set , remove} from "firebase/database";
 import firebase from "../firebase";
 import state from "./Session";
 import {proxy, useSnapshot} from "valtio";
@@ -16,6 +16,9 @@ const FEATURED_API = "https://api.themoviedb.org/3/movie/XXXXXXX?api_key=debe76e
 const Movie = (props) => {
 
   const movieId = props.route.params.movieId;
+
+  const [favorite, setFavorite] = useState(false);
+  const [mustWatch, setMustWatch] = useState(false);
 
   const [movieState, setMovieState] = useState({
     title: "",
@@ -33,30 +36,82 @@ const Movie = (props) => {
     .catch((error) => {
         console.error(error);
     })
+
+    
+    get(child(ref(firebase.db), 'users/userData/' + state.email.replace(".", "--DOT--") + '/favorites/' + movieId.toString()))
+    .then((snapshot) => {
+      setTimeout(() => {
+      if(snapshot.exists){
+        if(snapshot.val() != null){
+          setFavorite(true);
+        }
+      }
+      }, 20);
+    })
+
+    get(child(ref(firebase.db), 'users/userData/' + state.email.replace(".", "--DOT--") + '/watchlist/' + movieId.toString()))
+    .then((snapshot) => {
+      setTimeout(() => {
+      if(snapshot.exists){
+        if(snapshot.val() != null){
+          setMustWatch(true);
+        }
+      }
+      }, 20);
+    })
   }, []);
 
-  const addToFavorites = () => {
-    if(firebase.db != null){
-      var reference = ref(firebase.db, 'users/userData/' + state.email.replace("." , "--DOT--") + '/favorites/' + movieId);
-      set(reference, {
-        title : movieState.title,
-      });
+  const handleFavorites = () => {
+
+    setFavorite(favorite ? false : true);
+
+    if(!favorite){
+      if(firebase.db != null){
+        var reference = ref(firebase.db, 'users/userData/' + state.email.replace("." , "--DOT--") + '/favorites/' + movieId);
+        set(reference, {
+          title : movieState.title,
+        });
+      }
+      else{
+        Alert.alert("Database connection error");
+      }
     }
     else{
-      Alert.alert("Database connection error");
+      if(firebase.db != null){
+        var reference = ref(firebase.db, 'users/userData/' + state.email.replace("." , "--DOT--") + '/favorites/' + movieId);
+        remove(reference);
+      }
+      else{
+        Alert.alert("Database connection error");
+      }
     }
   }
 
-  const addToWatchList = () => {
-    if(firebase.db != null){
+  const handleWatchList = () => {
+
+    setMustWatch(mustWatch ? false : true);
+
+    if(!mustWatch){
+      if(firebase.db != null){
       var reference = ref(firebase.db, 'users/userData/' + state.email.replace("." , "--DOT--") + '/watchlist/' + movieId);
       set(reference, {
         title : movieState.title,
       });
+      }
+      else{
+        Alert.alert("Database connection error");
+      }
     }
     else{
-      Alert.alert("Database connection error");
+      if(firebase.db != null){
+        var reference = ref(firebase.db, 'users/userData/' + state.email.replace("." , "--DOT--") + '/watchlist/' + movieId);
+        remove(reference);
+      }
+      else{
+        Alert.alert("Database connection error");
+      }
     }
+
   }
 
 
@@ -70,11 +125,11 @@ const Movie = (props) => {
                 {movieState.title}
             </Text>
             <View style={styles.buttonContainer}> 
-                <Pressable onPress = {() => addToWatchList()}>
-                <Image source={require('../assets/plus_unchecked.png')} style={styles.icon}/>
+                <Pressable onPress = {() => handleWatchList()}>
+                <Image source={mustWatch == false ? require('../assets/plus_unchecked.png') : require('../assets/plus_checked.png')} style={styles.icon}/>
                 </Pressable>
-                <Pressable onPress = {() => addToFavorites()}>
-                <Image source={require('../assets/favorite_unchecked.png')} style={styles.icon}/>
+                <Pressable onPress = {() => handleFavorites()}>
+                <Image source={favorite == false ? require('../assets/favorite_unchecked.png') : require('../assets/favorite_checked.png')} style={styles.icon}/>
                 </Pressable>    
             </View>
         </View>
