@@ -14,6 +14,14 @@ const SearchBarComponent = ({navigation}) => {
     title: "",
   });
 
+  const searchWithInput = () => {
+
+    if(searchTitle.title != "" && searchTitle.title != " "){
+      navigation.navigate("UserSearch", {searchTitle: searchTitle.title})
+    }
+
+  }
+
   return (
 
       <View style={styles.searchbar}>
@@ -29,9 +37,13 @@ const SearchBarComponent = ({navigation}) => {
 
           <Pressable  
           onPress={
-          //()=> Alert.alert( (navigation == null).toString() )
-          ()=> navigation.navigate("UserSearch", {searchTitle: searchTitle.title})
-          }
+            
+              
+              ()=> searchWithInput()
+
+              
+            }
+          
           title='UserSearch' 
           style={styles.pressableSearch}
           

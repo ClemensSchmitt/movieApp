@@ -72,6 +72,11 @@ const Favorites = ({navigation}) => {
     return(
         <View style={styles.container}>
             <SearchBarComponent navigation={navigation}></SearchBarComponent>
+            <View style={styles.headerBar}>
+                <Text style={styles.headerText}>
+                    Favorites
+                </Text>
+            </View>
             <ScrollView contentContainerStyle={styles.contentMoviesContainer} style={styles.moviesContainer} >
             {showComponent && movies.map((movie)=> {
                         return( 

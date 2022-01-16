@@ -5,16 +5,23 @@ const Impressum = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-
-            <Text style={styles.headerTextStyle}>Impressum</Text>
-
+            <View style={styles.headerBar}>
+                <Text style={styles.headerText}>
+                    Impressum
+                </Text>
+            </View>
+            <View style={styles.spacer}></View>
+            <View style={styles.descriptionContainer}>
+                <Text style={styles.description}>FILMLIST ©</Text>
+                <Text style={styles.description}>Clemens Schmitt (10011682) + Julius Nielsen (10011814)</Text>
+                <Text style={styles.description}>Mobile Computing WiSe 2021/2022</Text>
+                <Text style={styles.description}>Prof. Dr. Fatih Gedikli</Text>
+            </View>
        
            
-            <View style={styles.spacer}>
-                <Pressable onPress = {() => navigation.navigate("Dashboard")} title='Lets Go!' style={styles.buttonStyle}>
-                <Text style={styles.buttonTextStyle}>Dashboard</Text>
-                </Pressable>
-            </View>
+            
+
+            <View style={styles.spacer}></View>
         </View>
     )
 }
@@ -25,20 +32,46 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         flexDirection: "column",
+        justifyContent: "space-between",
     },
 
-    headerTextStyle: {
+    headerBar:{
+        
+        padding: '1%',
+        marginHorizontal: '2%',
+        marginTop:30,
+        backgroundColor: '#4527A0',
+        borderRadius: 8,
+        opacity: 50,
+  
+  
+    },
+    headerText:{
         textAlign: 'center',
         textAlignVertical: 'center',
-        color: '#FFF',
-        top: 15,
+        color: '#fff',
+        fontSize: 30,
+        
         textShadowColor: '#000000',
         textShadowRadius: 10,
-        flex: 1,
     },
-
     spacer:{
         flex:1,
+    },
+    descriptionContainer:{
+        backgroundColor: 'gray',
+        padding: 10,
+        borderRadius: 8,
+
+    },
+    description:{
+        color:'#fff',
+        textAlign:"center",
+        marginVertical:5,
+
+    },
+    buttonContainer:{
+
     },
 
     buttonStyle: {

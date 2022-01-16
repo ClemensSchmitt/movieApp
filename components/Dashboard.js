@@ -11,8 +11,18 @@ const Dashboard = ({navigation}) => {
 
   //This is how to use the global Session
   const snap = useSnapshot(state);  
-  const [searchTitle, setSearchTitle] = useState("");
+  const [searchTitle, setSearchTitle] = useState({
+    title: "",
+  });
   const image = {uri: "https://image.tmdb.org/t/p/w1280/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg"}
+
+  const searchWithInput = () => {
+
+    if(searchTitle.title != "" && searchTitle.title != " "){
+      navigation.navigate("UserSearch", {searchTitle: searchTitle.title})
+    }
+
+  }
 
   return (
     <View style={styles.container}>
@@ -36,8 +46,8 @@ const Dashboard = ({navigation}) => {
 
               <Pressable  
               onPress={
-              //()=> Alert.alert( (navigation == null).toString() )
-              ()=> navigation.navigate("UserSearch", {searchTitle: searchTitle.title})
+                
+                ()=> searchWithInput()
               }
               title='UserSearch' 
               style={styles.pressableSearch}
@@ -53,7 +63,8 @@ const Dashboard = ({navigation}) => {
 
           <View style={styles.spacer}></View>
 
-          <View style={styles.buttonContainerWrapper} >
+          <View style={styles.buttonContainerContainer} >
+            <View style={styles.buttonContainerWrapper} >
 
               <View style={styles.buttonContainer}>
                   <Pressable onPress = {() => navigation.navigate("Popular")} title='Popular' style={styles.buttonStyle}>
@@ -68,6 +79,7 @@ const Dashboard = ({navigation}) => {
                   <Text style={styles.buttonTextStyle}>My Profile</Text>
                   </Pressable>
               </View>
+            </View>
           </View>
           <View style={styles.spacer}></View>
           <View style={styles.spacer}></View>
@@ -92,7 +104,7 @@ const styles = StyleSheet.create({
     //justifyContent: "center"
   },
   backgroundShader:{
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0,0,0,0.7)',
     flex: 1,
     justifyContent: "center"
   },
@@ -133,12 +145,25 @@ const styles = StyleSheet.create({
   spacer: {
       flex:1,
   },
+  buttonContainerContainer:{
+
+
+    
+     
+     flex:1,
+
+     //marginVertical: 20,
+
+     justifyContent: 'center',
+
+     
+ },
   buttonContainerWrapper:{
 
      borderRadius: 8,
      
-      minHeight: 60,
-      flex:1,
+      
+      height: 180,
       padding: 20,
       //marginVertical: 20,
       backgroundColor: "#4527A0",
