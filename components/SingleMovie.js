@@ -1,20 +1,34 @@
-import React from "react";
-import { StyleSheet,View, Text, TouchableOpacity, Alert, TextInput, Image } from "react-native";
+import {React, useState, useEffect} from "react";
+import { StyleSheet,View, Text, TouchableOpacity, Alert, TextInput, Image, Dimensions} from "react-native";
 
 const IMAGE_API = "https://image.tmdb.org/t/p/w1280";
 
 
 
 const SingleMovie = (props) => {
+
+    
+    const [singleMovieDimensions, setSingleMovieDimensions] = useState({
+        width: 150,
+        height: 200,
+    })
+
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
+
+    useEffect(() => {
+        setSingleMovieDimensions({...singleMovieDimensions, ["width"]: windowWidth/3, ["height"]: windowHeight/3});
+    }, [])
+
+
     return(
         
-        <View style={styles.movie}>
+        <View style={styles.movie, singleMovieDimensions}>
 
             <Image 
             source={{uri: IMAGE_API + props.poster_path}} 
             style={{
                 width: '100%',
-                //height: '80%',
                 resizeMode: 'cover',
                 flex: 4,
                 borderTopLeftRadius: 8,
@@ -31,8 +45,6 @@ const styles = StyleSheet.create({
    
     movie:{
         //backgroundColor: '#6200EA',
-        width: 185,
-        height: 330,
         borderRadius: 8,
         //alignItems: 'center',
         
