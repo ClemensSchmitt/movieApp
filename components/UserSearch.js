@@ -37,8 +37,6 @@ const UserSearch = (props) => {
             })
     },[]);
 
-    //setMovies([...movies, 1]);
-
     return(
        
         <View style={styles.container}>

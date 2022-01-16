@@ -4,6 +4,8 @@ import SearchBarComponent from "./SearchBarComponent";
 
 const Profile = ({navigation}) => {
 
+    
+
     return (
         <View style={styles.container}>
             
@@ -23,8 +25,8 @@ const Profile = ({navigation}) => {
             </View>
 
             <View style={styles.buttonContainer}>
-                <Pressable onPress = {() => navigation.navigate("PersonalRanking")} title='PersonalRanking' style={styles.buttonStyle}>
-                <Text style={styles.buttonTextStyle}>PersonalRanking</Text>
+                <Pressable onPress = {() => navigation.navigate("MustWatchList")} title='MustWatchList' style={styles.buttonStyle}>
+                <Text style={styles.buttonTextStyle}>Must Watch List</Text>
                 </Pressable>
             </View>
 
@@ -33,8 +35,8 @@ const Profile = ({navigation}) => {
             </View>
 
             <View style={styles.buttonContainer}>
-                <Pressable   Pressable onPress = {() => navigation.navigate("Impressum")} title='Impressum' style={styles.buttonStyle}>
-                <Text style={styles.headerTextStyle}>Logout Button</Text>
+                <Pressable   Pressable onPress = {() => navigation.navigate("Login")} title='Login' style={styles.buttonStyle}>
+                <Text style={styles.buttonTextStyle}>Logout Button</Text>
                 </Pressable>
             </View>
 
